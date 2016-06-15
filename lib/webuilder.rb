@@ -1,6 +1,10 @@
 require "rack"
 require "webrick"
 
+# TODO: Add asset pipeline
+# TODO: Test Driven Development
+# TODO: Test how well actions within routes work
+
 module Webuilder
 
 	class App
@@ -74,6 +78,14 @@ module Webuilder
 		def self.paths
 			@@paths
 		end
+
+		module Verbs
+			[:get, :post].each do |name|
+				define_method(name) do |path, output = "Hello World!", headers = nil, &block|
+					Webuilder::Path.new(path,headers,block,name,output)
+				end
+			end
+		end
 	end
 
 	module RequestHandlers
@@ -101,7 +113,11 @@ module Webuilder
 		end
 	end
 
+	##
+	# This class is responsible for validating all of the file paths which are used in the app
 	module Validations
+		##
+		# This checks if a file name is using `..` to back out, which would allow access to any files on the system
 		def self.public_folder(file_name)
 			return file_name.gsub(/(.\.\.|[^a-zA-Z0-9\.\\\/\-])/,"")
 		end
@@ -111,14 +127,12 @@ module Webuilder
 	# Manages the (currently only webrick) server
 	
 	module Server
-		@@server = nil
 		def self.start
-			@@server = Rack::Handler::WEBrick
-			@@server.run App
+			Rack::Server.start(:app =>Webuilder::App, :server => WEBrick)
 		end
 
 		def self.stop
-			@@server.shutdown
+			Rack::Server.stop
 		end
 	end
 end
@@ -126,15 +140,7 @@ end
 ##
 # The code below allows the main functions to be easily accessable from the main file.
 # Probobly can be edited later to concat them to the Main Object... Whatever that is
-
-methods=[:get,:post]
-
-methods.each do |name|
-	define_method(name) do |path, output = "Hello World!", headers = nil, &block|
-		Webuilder::Path.new(path,headers,block,name,output)
-	end
-end
-
-def html(file)
-	Webuilder::Renderers.html(file)
+class Object
+	include Webuilder::Path::Verbs
+	include Webuilder::Renderers
 end
