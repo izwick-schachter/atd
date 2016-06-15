@@ -108,7 +108,7 @@ module Webuilder
 	end
 
 	module Renderers
-		def self.html(file)
+		def html(file)
 			return {:content => File.read("./public/"+Validations.public_folder(file)), :"content-type" => "text/html"}
 		end
 	end
@@ -127,20 +127,23 @@ module Webuilder
 	# Manages the (currently only webrick) server
 	
 	module Server
-		def self.start
+		def start
 			Rack::Server.start(:app =>Webuilder::App, :server => WEBrick)
 		end
 
-		def self.stop
+		def stop
 			Rack::Server.stop
 		end
 	end
+
+
 end
 
 ##
-# The code below allows the main functions to be easily accessable from the main file.
-# Probobly can be edited later to concat them to the Main Object... Whatever that is
+# Adds relevant methods to Object for easy access
 class Object
 	include Webuilder::Path::Verbs
 	include Webuilder::Renderers
+	include Webuilder::Server
+	include Webuilder::Request
 end
