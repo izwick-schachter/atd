@@ -48,6 +48,9 @@ module Webuilder
 			# Returns the resulting packet
 			return [status_code, headers, page]
 		end
+		module Request
+			attr_accessor :env
+		end
 	end
 
 	##
@@ -136,7 +139,6 @@ module Webuilder
 		end
 	end
 
-
 end
 
 ##
@@ -145,5 +147,4 @@ class Object
 	include Webuilder::Path::Verbs
 	include Webuilder::Renderers
 	include Webuilder::Server
-	include Webuilder::Request
 end

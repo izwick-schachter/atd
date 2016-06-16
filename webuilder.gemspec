@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    =
     'http://rubygems.org/gems/webuilder'
   s.license       = 'MIT'
+  s.executables = ["webuilder"]
   s.add_runtime_dependency "rack", "~> 1.6"
   s.add_runtime_dependency "webrick", "~> 1.3"
 end
