@@ -30,8 +30,6 @@ To create a get route:
 
 This is the most basic fuctionality. The framework is designed so that it can gradually be build upon.
 
-ANY FUNCTIONALITY LISTED FROM HERE ON HAS NOT YET BEEN IMPLIMENTED
-
 The next step would be to generate some basic assets with
 
 `atd generate assets`
@@ -41,9 +39,14 @@ This command will generate an assets folder, in which you can put all of your as
 ## Todo List
 
 1. Enable access to a params hash in the routes
-2. Automatically call html if a file has the extension `.html`
-3. Create a command to create basic assets
-4. Further investigate on how to imitate Volt
+2. Further investigate on how to imitate Volt
+
+## Change Log
+
+0.0.1:
+ - Made assets accessable from `/<asset_name>`
+ - Setup command to create assets folder (`atd generate assets`)
+ - Created auto filetype recognician (so you no logner have to type `html("file.html")` you can simply use `"file.html"`)
 
 ## Contributing
 ##### Any help you can give would be increbible, please don't be shy

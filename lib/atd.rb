@@ -59,20 +59,32 @@ module ATD
 	class Path
 		@@paths = {}
 
+		@asset = false
 		@headers = nil
 		@action = nil
 		@method = nil
 		@output = nil
 
-		attr_reader :headers, :action, :method, :output
+		attr_reader :headers, :action, :method, :output, :asset
 
-		def initialize(path, headers, action, method, output)
-			puts "Path #{path} initialized"
-			@headers = headers #Why...?
-			@action = action # http meth
-			@method = method # code
-			@output = output
-			@@paths[path] = self
+		def initialize(path, headers, action, method, output, asset = false)
+			puts "PREV PATH: #{@@paths[path]}"
+			if !@@paths[path].nil? && !asset
+				puts "Warning: You have conflicting routes. Only the first one will be kept. "
+			else
+				if !asset || @@paths[path].nil?
+					puts "Path #{path} initialized"
+					@asset = asset
+					@headers = headers #Why...?
+					@action = action # http meth
+					@method = method # code
+					@output = Renderers.parse(output)
+					puts "@output: #{@output}"
+					@@paths[path] = self
+				else
+					puts "Asset #{path} skipped"
+				end
+			end
 		end
 
 		##
@@ -86,6 +98,14 @@ module ATD
 			[:get, :post].each do |name|
 				define_method(name) do |path, output = "Hello World!", headers = nil, &block|
 					ATD::Path.new(path,headers,block,name,output)
+				end
+			end
+		end
+
+		module Assets
+			def self.setup
+				(Dir.entries("assets")-["..","."]).each do |i|
+					ATD::Path.new("/#{i}",nil,nil,:get,i,true)
 				end
 			end
 		end
@@ -111,8 +131,27 @@ module ATD
 	end
 
 	module Renderers
+		def self.parse(filename)
+			mime_type = "text/plain"
+			file = filename
+			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
+				file = File.read("./assets/#{Validations.assets_folder(filename)}")
+				filename.split(".").reverse.each do |i|
+					break unless ["html"].include? i
+					file = send("#{i}",file)
+					mime_type = "text/#{i}"
+				end
+			end
+			return {:content => file, :"content-type" => mime_type}
+		end
+		def parse(filename)
+			Renderers.parse(filename)
+		end
 		def html(file)
-			return {:content => File.read("./public/"+Validations.public_folder(file)), :"content-type" => "text/html"}
+			Renderers.html(file)
+		end
+		def self.html(file)
+			return file
 		end
 	end
 
@@ -121,7 +160,7 @@ module ATD
 	module Validations
 		##
 		# This checks if a file name is using `..` to back out, which would allow access to any files on the system
-		def self.public_folder(file_name)
+		def self.assets_folder(file_name)
 			return file_name.gsub(/(.\.\.|[^a-zA-Z0-9\.\\\/\-])/,"")
 		end
 	end
@@ -131,6 +170,7 @@ module ATD
 	
 	module Server
 		def start
+			ATD::Path::Assets.setup
 			Rack::Server.start(:app =>ATD::App, :server => WEBrick)
 		end
 
