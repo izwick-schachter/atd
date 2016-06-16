@@ -78,6 +78,9 @@
 
   <section class="description">
     
+<p>This class is responsible for validating all of the file paths which are
+used in the app</p>
+
   </section>
 
   
@@ -112,13 +115,14 @@
 
         <div class="method-description">
           
-          
+          <p>This checks if a file name is using `..` to back out, which would allow
+access to any files on the system</p>
           
           
 
           
           <div class="method-source-code" id="public_folder-source">
-            <pre><span class="ruby-comment"># File lib/webuilder.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">public_folder</span>(<span class="ruby-identifier">file_name</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">file_name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/(.\.\.|[^a-zA-Z0-9\.\\/\-])/</span>,<span class="ruby-string">&quot;&quot;</span>)
 <span class="ruby-keyword">end</span></pre>

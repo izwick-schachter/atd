@@ -63,9 +63,9 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-start">::start</a>
+    <li ><a href="#method-i-start">#start</a>
     
-    <li ><a href="#method-c-stop">::stop</a>
+    <li ><a href="#method-i-stop">#stop</a>
     
   </ul>
 </div>
@@ -97,13 +97,13 @@
     
 
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Public Class Methods</h3>
+         <h3>Public Instance Methods</h3>
        </header>
 
     
-      <div id="method-c-start" class="method-detail ">
+      <div id="method-i-start" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">start</span><span
@@ -122,10 +122,9 @@
 
           
           <div class="method-source-code" id="start-source">
-            <pre><span class="ruby-comment"># File lib/webuilder.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">start</span>
-        <span class="ruby-identifier">@@server</span> = <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Handler</span><span class="ruby-operator">::</span><span class="ruby-constant">WEBrick</span>
-        <span class="ruby-identifier">@@server</span>.<span class="ruby-identifier">run</span> <span class="ruby-constant">App</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>
+        <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Server</span>.<span class="ruby-identifier">start</span>(<span class="ruby-value">:app</span> =<span class="ruby-operator">&gt;</span><span class="ruby-constant">Webuilder</span><span class="ruby-operator">::</span><span class="ruby-constant">App</span>, <span class="ruby-value">:server</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">WEBrick</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -137,7 +136,7 @@
       </div>
 
     
-      <div id="method-c-stop" class="method-detail ">
+      <div id="method-i-stop" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">stop</span><span
@@ -156,9 +155,9 @@
 
           
           <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/webuilder.rb, line 120</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">stop</span>
-        <span class="ruby-identifier">@@server</span>.<span class="ruby-identifier">shutdown</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 137</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>
+        <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Server</span>.<span class="ruby-identifier">stop</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

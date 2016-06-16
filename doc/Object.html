@@ -62,7 +62,26 @@
   
 </div>
 
-    
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Webuilder/Path/Verbs.html">Webuilder::Path::Verbs</a>
+  
+  
+  
+    <li><a class="include" href="Webuilder/Renderers.html">Webuilder::Renderers</a>
+  
+  
+  
+    <li><a class="include" href="Webuilder/Server.html">Webuilder::Server</a>
+  
+  
+  </ul>
+</div>
+
     
     <!-- Method Quickref -->
 <div id="method-list-section" class="nav-section">
@@ -70,7 +89,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-html">#html</a>
+    <li ><a href="#method-i-create_message">#create_message</a>
     
   </ul>
 </div>
@@ -85,6 +104,8 @@
 
   <section class="description">
     
+<p>Adds relevant methods to <a href="Object.html">Object</a> for easy access</p>
+
   </section>
 
   
@@ -106,11 +127,11 @@
        </header>
 
     
-      <div id="method-i-html" class="method-detail ">
+      <div id="method-i-create_message" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">html</span><span
-            class="method-args">(file)</span>
+          <span class="method-name">create_message</span><span
+            class="method-args">(name, &block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -124,10 +145,12 @@
           
 
           
-          <div class="method-source-code" id="html-source">
-            <pre><span class="ruby-comment"># File lib/webuilder.rb, line 138</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">html</span>(<span class="ruby-identifier">file</span>)
-        <span class="ruby-constant">Webuilder</span><span class="ruby-operator">::</span><span class="ruby-constant">Renderers</span>.<span class="ruby-identifier">html</span>(<span class="ruby-identifier">file</span>)
+          <div class="method-source-code" id="create_message-source">
+            <pre><span class="ruby-comment"># File bin/webuilder, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_message</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Creating #{name}...&quot;</span>
+        <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{name.capitalize} created!\n\n&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
