@@ -41,4 +41,12 @@ when "new"
 	puts "\n\nGit set up!\n\n"
 	puts "Running your app! Use CTRL+c to exit."
 	exec("ruby app.rb; cd #{ARGV[1]}")
+when "generate"
+	case ARGV[1]
+	when "assets"
+		create_message("assets folder") do
+			Dir.mkdir("assets")
+			Dir.chdir("assets")
+		end
+	end
 end
