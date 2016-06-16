@@ -18,7 +18,7 @@ when "new"
 	create_message("app file") do
 		app = File.new("app.rb", "w")
 
-		app.puts "require \"webuilder\"\n\n# Here is where you write your code. Below is a sample Hello World route.\nget \"/\", \"Hello World!\"\n\nstart"
+		app.puts "require \"atd\"\n\n# Here is where you write your code. Below is a sample Hello World route.\nget \"/\", \"Hello World!\"\n\nstart"
 
 		app.close
 	end
@@ -26,7 +26,7 @@ when "new"
 	create_message("Gemfile") do
 		gemfile = File.new("Gemfile", "w")
 
-		gemfile.puts "source \"https://rubygems.org\"\n\ngem \"webuilder\"\n gem \"webrick\""
+		gemfile.puts "source \"https://rubygems.org\"\n\ngem \"atd\"\ngem \"webrick\""
 
 		gemfile.close
 	end
@@ -37,7 +37,7 @@ when "new"
 	puts "\n\nSetting up git...\n\n"
 	puts `git init`
 	puts `git add .`
-	puts `git commit -am "Initial commit. Welcome to webuilder! Njoy!"`
+	puts `git commit -am "Initial commit. Welcome to atd! Njoy!"`
 	puts "\n\nGit set up!\n\n"
 	puts "Running your app! Use CTRL+c to exit."
 	exec("ruby app.rb; cd #{ARGV[1]}")

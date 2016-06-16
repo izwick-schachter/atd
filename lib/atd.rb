@@ -5,12 +5,12 @@ require "webrick"
 # TODO: Test Driven Development
 # TODO: Test how well actions within routes work
 
-module Webuilder
+module ATD
 
 	class App
 
 		##
-		# Allows Webuilder::RequestHandlers to access env["PATH_INFO"]
+		# Allows ATD::RequestHandlers to access env["PATH_INFO"]
 
 		def self.path_info
 			@@path_info
@@ -34,10 +34,10 @@ module Webuilder
 				##
 				# Otherwise
 				##
-				# 1. Sets @@path_info to env["PATH_INFO"] for use in Webuilder::RequestHandlers
+				# 1. Sets @@path_info to env["PATH_INFO"] for use in ATD::RequestHandlers
 				@@path_info = env["PATH_INFO"]
 				##
-				# 2. Sets ouput to wherever Webuilder::RequestHandlers returns from RequestHandlers.get / .post call
+				# 2. Sets ouput to wherever ATD::RequestHandlers returns from RequestHandlers.get / .post call
 				output = RequestHandlers.public_send(Path.paths[env["PATH_INFO"]].method) if [:get, :post].include? Path.paths[env["PATH_INFO"]].method.downcase
 				##
 				# 3. Converts ouput to a usable rack ouput
@@ -55,7 +55,7 @@ module Webuilder
 
 	##
 	# Manages all the initally created paths.
-	# They're all stored here, and this class is queried by the Webuilder::App.call (rack server) to check if a path exists
+	# They're all stored here, and this class is queried by the ATD::App.call (rack server) to check if a path exists
 	class Path
 		@@paths = {}
 
@@ -76,7 +76,7 @@ module Webuilder
 		end
 
 		##
-		# Returns all the paths that exist. Queried by the Webuilder::App.call (rack server)
+		# Returns all the paths that exist. Queried by the ATD::App.call (rack server)
 
 		def self.paths
 			@@paths
@@ -85,7 +85,7 @@ module Webuilder
 		module Verbs
 			[:get, :post].each do |name|
 				define_method(name) do |path, output = "Hello World!", headers = nil, &block|
-					Webuilder::Path.new(path,headers,block,name,output)
+					ATD::Path.new(path,headers,block,name,output)
 				end
 			end
 		end
@@ -131,7 +131,7 @@ module Webuilder
 	
 	module Server
 		def start
-			Rack::Server.start(:app =>Webuilder::App, :server => WEBrick)
+			Rack::Server.start(:app =>ATD::App, :server => WEBrick)
 		end
 
 		def stop
@@ -144,7 +144,7 @@ end
 ##
 # Adds relevant methods to Object for easy access
 class Object
-	include Webuilder::Path::Verbs
-	include Webuilder::Renderers
-	include Webuilder::Server
+	include ATD::Path::Verbs
+	include ATD::Renderers
+	include ATD::Server
 end
