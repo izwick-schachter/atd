@@ -48,7 +48,7 @@ This command will generate an assets folder, in which you can put all of your as
  - Setup command to create assets folder (`atd generate assets`)
  - Created auto filetype recognician (so you no logner have to type `html("file.html")` you can simply use `"file.html"`)
 
-0.0.1.1:
+0.0.2:
 ###### Bugfix!
  - Squashed a bug where the server wouldn't start unless the assets directory existed
 
