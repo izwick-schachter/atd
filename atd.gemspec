@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email       = 'izwick.schachter@gmail.com'
   s.files       = ["lib/atd.rb"]
   s.homepage    =
-    'http://rubygems.org/gems/atd'
+    'https://github.com/izwick-schachter/atd'
   s.license       = 'MIT'
   s.executables = ["atd"]
   s.add_runtime_dependency "rack", "~> 1.6"
