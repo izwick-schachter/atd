@@ -68,7 +68,6 @@ module ATD
 		attr_reader :headers, :action, :method, :output, :asset
 
 		def initialize(path, headers, action, method, output, asset = false)
-			puts "PREV PATH: #{@@paths[path]}"
 			if !@@paths[path].nil? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
 			else
@@ -104,6 +103,7 @@ module ATD
 
 		module Assets
 			def self.setup
+				return nil if !Dir.exists? "assets"
 				(Dir.entries("assets")-["..","."]).each do |i|
 					ATD::Path.new("/#{i}",nil,nil,:get,i,true)
 				end
