@@ -52,6 +52,10 @@ This command will generate an assets folder, in which you can put all of your as
 ###### Bugfix!
  - Squashed a bug where the server wouldn't start unless the assets directory existed
 
+0.0.3:
+ - Completed documentation for existing methods
+ - Removed duplicate methods
+
 ## Contributing
 ##### Any help you can give would be increbible, please don't be shy
 

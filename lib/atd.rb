@@ -3,6 +3,7 @@ require "rack"
 # TODO: Add asset pipeline
 # TODO: Test Driven Development
 # TODO: Test how well actions within routes work
+# TODO: Don't generate assets unless in an atd dir
 
 module ATD
 
@@ -150,7 +151,7 @@ module ATD
 
 		##
 		# Because all paths need their action called, so this method does it, and is called by all the other ATD::RequestHandlers
-		def all
+		def self.all
 			Path.paths[App.path_info].action.call unless Path.paths[App.path_info].action == nil
 		end
 	end
