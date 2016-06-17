@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = 'atd'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2016-04-31'
   s.summary     = "A gem with the simplicity of sinatra, but the scalability of rails."
-  # s.description = "A gem with the simplicity of sinatra, but the scalability of rails."
+  s.description = "Allow this gem to give your gem some direction with it's easy to use 1 line method, and asset parsing/precompilation. Also, it's beautiful smoke test."
   s.authors     = ["Isaiah Zwick-Schachter"]
   s.email       = 'izwick.schachter@gmail.com'
   s.files       = ["lib/atd.rb"]
