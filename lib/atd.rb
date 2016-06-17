@@ -148,9 +148,6 @@ module ATD
 			Renderers.parse(filename)
 		end
 		def html(file)
-			Renderers.html(file)
-		end
-		def self.html(file)
 			return file
 		end
 	end
