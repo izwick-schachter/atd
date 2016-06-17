@@ -63,6 +63,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-parse">::parse</a>
+    
     <li ><a href="#method-i-html">#html</a>
     
   </ul>
@@ -93,6 +95,60 @@
     
 
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(filename)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>As input it takes a filename, checks if it&#39;s in the assets folder, then
+parses it using the other methods in <a
+href="Renderers.html">ATD::Renderers</a> and once it reaches the last
+extension, returns it and also finds the mime_type.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 162</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">filename</span>)
+        <span class="ruby-identifier">mime_type</span> = <span class="ruby-string">&quot;text/plain&quot;</span>
+        <span class="ruby-identifier">file</span> = <span class="ruby-identifier">filename</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-node">&quot;./assets/#{Validations.assets_folder(filename)}&quot;</span>)
+                <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-node">&quot;./assets/#{Validations.assets_folder(filename)}&quot;</span>)
+                <span class="ruby-identifier">filename</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;.&quot;</span>).<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+                        <span class="ruby-keyword">break</span> <span class="ruby-keyword">unless</span> [<span class="ruby-string">&quot;html&quot;</span>].<span class="ruby-identifier">include?</span> <span class="ruby-identifier">i</span>
+                        <span class="ruby-identifier">file</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{i}&quot;</span>,<span class="ruby-identifier">file</span>)
+                        <span class="ruby-identifier">mime_type</span> = <span class="ruby-node">&quot;text/#{i}&quot;</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">return</span> {<span class="ruby-value">:content</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file</span>, <span class="ruby-value">:&quot;content-type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">mime_type</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
@@ -112,15 +168,16 @@
 
         <div class="method-description">
           
-          
+          <p>Parses an html file (in this case, there is nothing to be parsed, it simply
+returns an html file.)</p>
           
           
 
           
           <div class="method-source-code" id="html-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">html</span>(<span class="ruby-identifier">file</span>)
-        <span class="ruby-keyword">return</span> {<span class="ruby-value">:content</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;./public/&quot;</span><span class="ruby-operator">+</span><span class="ruby-constant">Validations</span>.<span class="ruby-identifier">public_folder</span>(<span class="ruby-identifier">file</span>)), <span class="ruby-value">:&quot;content-type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;text/html&quot;</span>}
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">file</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
