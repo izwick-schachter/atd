@@ -145,8 +145,12 @@ module ATD
 			return {:content => file, :"content-type" => mime_type}
 		end
 		def parse(filename)
+			puts "Parse method called\n\n\n\n\n\n"
 			Renderers.parse(filename)
 		end
+
+		##
+		# Parses an html file (in this case, there is nothing to be parsed, it simply returns an html file.)
 		def html(file)
 			return file
 		end
