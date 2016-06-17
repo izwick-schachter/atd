@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'atd'
-  s.version     = '0.0.0'
+  s.version     = '0.0.3'
   s.date        = '2016-04-31'
   s.summary     = "A gem with the simplicity of sinatra, but the scalability of rails."
   # s.description = "A gem with the simplicity of sinatra, but the scalability of rails."
