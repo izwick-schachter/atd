@@ -25,6 +25,23 @@
 <h2 id="pages">Pages</h2>
 <ul>
   <li class="file">
+    <a href="README_md.html">README</a>
+
+    <ul>
+      <li><a href="README_md.html#label-ATD">ATD</a>
+      <li><a href="README_md.html#label-What+is+it-3F">What is it?</a>
+      <li><a href="README_md.html#label-Installation">Installation</a>
+      <li><a href="README_md.html#label-Usage">Usage</a>
+      <li><a href="README_md.html#label-Todo+List">Todo List</a>
+      <li><a href="README_md.html#label-Change+Log">Change Log</a>
+      <li><a href="README_md.html#label-Contributing">Contributing</a>
+      <li><a href="README_md.html#label-Any+help+you+can+give+would+be+increbible-2C+please+don-27t+be+shy">Any help you can give would be increbible, please don&#39;t be shy</a>
+    </ul>
+  </li>
+    <li class="file">
+    <a href="assets/companyname_website_html.html">companyname.website.html</a>
+  </li>
+    <li class="file">
     <a href="atd_gemspec.html">atd.gemspec</a>
   </li>
   
@@ -38,11 +55,11 @@
   <li class="class">
     <a href="ATD/App.html">ATD::App</a>
   </li>
-  <li class="module">
-    <a href="ATD/App/Request.html">ATD::App::Request</a>
-  </li>
   <li class="class">
     <a href="ATD/Path.html">ATD::Path</a>
+  </li>
+  <li class="module">
+    <a href="ATD/Path/Assets.html">ATD::Path::Assets</a>
   </li>
   <li class="module">
     <a href="ATD/Path/Verbs.html">ATD::Path::Verbs</a>
@@ -68,9 +85,14 @@
 <ul>
 
   <li class="method">
-    <a href="ATD/RequestHandlers.html#method-c-all">::all</a>
+    <a href="ATD/Path/Verbs.html#method-c-allowed_verbs">::allowed_verbs</a>
     &mdash;
-    <span class="container">ATD::RequestHandlers</span>
+    <span class="container">ATD::Path::Verbs</span>
+
+  <li class="method">
+    <a href="ATD/Validations.html#method-c-assets_folder">::assets_folder</a>
+    &mdash;
+    <span class="container">ATD::Validations</span>
 
   <li class="method">
     <a href="ATD/App.html#method-c-call">::call</a>
@@ -88,6 +110,11 @@
     <span class="container">ATD::Path</span>
 
   <li class="method">
+    <a href="ATD/Renderers.html#method-c-parse">::parse</a>
+    &mdash;
+    <span class="container">ATD::Renderers</span>
+
+  <li class="method">
     <a href="ATD/App.html#method-c-path_info">::path_info</a>
     &mdash;
     <span class="container">ATD::App</span>
@@ -103,9 +130,14 @@
     <span class="container">ATD::RequestHandlers</span>
 
   <li class="method">
-    <a href="ATD/Validations.html#method-c-public_folder">::public_folder</a>
+    <a href="ATD/Path/Assets.html#method-c-setup">::setup</a>
     &mdash;
-    <span class="container">ATD::Validations</span>
+    <span class="container">ATD::Path::Assets</span>
+
+  <li class="method">
+    <a href="ATD/RequestHandlers.html#method-i-all">#all</a>
+    &mdash;
+    <span class="container">ATD::RequestHandlers</span>
 
   <li class="method">
     <a href="Object.html#method-i-create_message">#create_message</a>
@@ -119,11 +151,6 @@
 
   <li class="method">
     <a href="ATD/Server.html#method-i-start">#start</a>
-    &mdash;
-    <span class="container">ATD::Server</span>
-
-  <li class="method">
-    <a href="ATD/Server.html#method-i-stop">#stop</a>
     &mdash;
     <span class="container">ATD::Server</span>
 </ul>

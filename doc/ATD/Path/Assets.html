@@ -4,17 +4,17 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module ATD::Validations - RDoc Documentation</title>
+<title>module ATD::Path::Assets - RDoc Documentation</title>
 
 <script type="text/javascript">
-  var rdoc_rel_prefix = "../";
+  var rdoc_rel_prefix = "../../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
 
-<link href="../css/fonts.css" rel="stylesheet">
-<link href="../css/rdoc.css" rel="stylesheet">
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
 
 
 
@@ -23,13 +23,13 @@
   <div id="project-navigation">
     <div id="home-section" role="region" title="Quick navigation" class="nav-section">
   <h2>
-    <a href="../index.html" rel="home">Home</a>
+    <a href="../../index.html" rel="home">Home</a>
   </h2>
 
   <div id="table-of-contents-navigation">
-    <a href="../table_of_contents.html#pages">Pages</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
   </div>
 </div>
 
@@ -63,7 +63,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-assets_folder">::assets_folder</a>
+    <li ><a href="#method-c-setup">::setup</a>
     
   </ul>
 </div>
@@ -71,15 +71,15 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="module-ATD::Validations">
-  <h1 id="module-ATD::Validations" class="module">
-    module ATD::Validations
+<main role="main" aria-labelledby="module-ATD::Path::Assets">
+  <h1 id="module-ATD::Path::Assets" class="module">
+    module ATD::Path::Assets
   </h1>
 
   <section class="description">
     
-<p>This class is responsible for validating all of the file paths which are
-used in the app</p>
+<p>Allows ATD::Server&#39;s start method to compile the static assets into
+routes</p>
 
   </section>
 
@@ -102,11 +102,11 @@ used in the app</p>
        </header>
 
     
-      <div id="method-c-assets_folder" class="method-detail ">
+      <div id="method-c-setup" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">assets_folder</span><span
-            class="method-args">(file_name)</span>
+          <span class="method-name">setup</span><span
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -115,16 +115,17 @@ used in the app</p>
 
         <div class="method-description">
           
-          <p>This checks if a file name is using `..` to back out, which would allow
-access to any files on the system</p>
+          <p>Takes all the files in the assets directory and creates routes from them</p>
           
           
 
           
-          <div class="method-source-code" id="assets_folder-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 188</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">assets_folder</span>(<span class="ruby-identifier">file_name</span>)
-        <span class="ruby-keyword">return</span> <span class="ruby-identifier">file_name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/(.\.\.|[^a-zA-Z0-9\.\\/\-])/</span>,<span class="ruby-string">&quot;&quot;</span>)
+          <div class="method-source-code" id="setup-source">
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup</span>
+        (<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-string">&quot;assets&quot;</span>)<span class="ruby-operator">-</span>[<span class="ruby-string">&quot;..&quot;</span>,<span class="ruby-string">&quot;.&quot;</span>]).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+                <span class="ruby-constant">ATD</span><span class="ruby-operator">::</span><span class="ruby-constant">Path</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;/#{i}&quot;</span>,<span class="ruby-keyword">nil</span>,<span class="ruby-keyword">nil</span>,<span class="ruby-value">:get</span>,<span class="ruby-identifier">i</span>,<span class="ruby-keyword">true</span>)
+        <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

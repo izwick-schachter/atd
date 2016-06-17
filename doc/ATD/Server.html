@@ -65,8 +65,6 @@
     
     <li ><a href="#method-i-start">#start</a>
     
-    <li ><a href="#method-i-stop">#stop</a>
-    
   </ul>
 </div>
 
@@ -116,48 +114,16 @@
 
         <div class="method-description">
           
-          
+          <p>Creates routes for all the assets, then starts a WEBrick server.</p>
           
           
 
           
           <div class="method-source-code" id="start-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 133</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 200</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>
+        <span class="ruby-constant">ATD</span><span class="ruby-operator">::</span><span class="ruby-constant">Path</span><span class="ruby-operator">::</span><span class="ruby-constant">Assets</span>.<span class="ruby-identifier">setup</span>
         <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Server</span>.<span class="ruby-identifier">start</span>(<span class="ruby-value">:app</span> =<span class="ruby-operator">&gt;</span><span class="ruby-constant">ATD</span><span class="ruby-operator">::</span><span class="ruby-constant">App</span>, <span class="ruby-value">:server</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">WEBrick</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-stop" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">stop</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 137</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>
-        <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Server</span>.<span class="ruby-identifier">stop</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

@@ -124,6 +124,19 @@ path exists</p>
         </div>
       </div>
       
+      <div id="attribute-i-asset" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">asset</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-headers" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">headers</span><span
@@ -177,7 +190,7 @@ path exists</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(path, headers, action, method, output)</span>
+            class="method-args">(path, headers, action, method, output, asset = false)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -186,20 +199,32 @@ path exists</p>
 
         <div class="method-description">
           
-          
+          <p>Initializes a path, saving them all in class variables and also manages
+duplicates.</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 69</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">output</span>)
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Path #{path} initialized&quot;</span>
-        <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">headers</span> <span class="ruby-comment">#Why...?</span>
-        <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">action</span> <span class="ruby-comment"># http meth</span>
-        <span class="ruby-ivar">@method</span> = <span class="ruby-identifier">method</span> <span class="ruby-comment"># code</span>
-        <span class="ruby-ivar">@output</span> = <span class="ruby-identifier">output</span>
-        <span class="ruby-identifier">@@paths</span>[<span class="ruby-identifier">path</span>] = <span class="ruby-keyword">self</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">output</span>, <span class="ruby-identifier">asset</span> = <span class="ruby-keyword">false</span>)
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;PREV PATH: #{@@paths[path]}&quot;</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">@@paths</span>[<span class="ruby-identifier">path</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">asset</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Warning: You have conflicting routes. Only the first one will be kept. &quot;</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">asset</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">@@paths</span>[<span class="ruby-identifier">path</span>].<span class="ruby-identifier">nil?</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Path #{path} initialized&quot;</span>
+                        <span class="ruby-ivar">@asset</span> = <span class="ruby-identifier">asset</span>
+                        <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">headers</span> <span class="ruby-comment">#Why...?</span>
+                        <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">action</span> <span class="ruby-comment"># http meth</span>
+                        <span class="ruby-ivar">@method</span> = <span class="ruby-identifier">method</span> <span class="ruby-comment"># code</span>
+                        <span class="ruby-ivar">@output</span> = <span class="ruby-constant">Renderers</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">output</span>)
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;@output: #{@output}&quot;</span>
+                        <span class="ruby-identifier">@@paths</span>[<span class="ruby-identifier">path</span>] = <span class="ruby-keyword">self</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Asset #{path} skipped&quot;</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -231,7 +256,7 @@ href="App.html#method-c-call">ATD::App.call</a> (rack server)</p>
 
           
           <div class="method-source-code" id="paths-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 81</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">paths</span>
         <span class="ruby-identifier">@@paths</span>
 <span class="ruby-keyword">end</span></pre>
