@@ -1,5 +1,4 @@
 require "rack"
-require "webrick"
 
 # TODO: Add asset pipeline
 # TODO: Test Driven Development
@@ -38,7 +37,7 @@ module ATD
 				@@path_info = env["PATH_INFO"]
 				##
 				# 2. Sets ouput to wherever ATD::RequestHandlers returns from RequestHandlers.get / .post call
-				output = RequestHandlers.public_send(Path.paths[env["PATH_INFO"]].method) if [:get, :post].include? Path.paths[env["PATH_INFO"]].method.downcase
+				output = RequestHandlers.public_send(Path.paths[env["PATH_INFO"]].method) if Path::Verbs.allowed_verbs.include? Path.paths[env["PATH_INFO"]].method.downcase
 				##
 				# 3. Converts ouput to a usable rack ouput
 				headers["content-type"] = output[:"content-type"]
@@ -47,9 +46,6 @@ module ATD
 			##
 			# Returns the resulting packet
 			return [status_code, headers, page]
-		end
-		module Request
-			attr_accessor :env
 		end
 	end
 
@@ -67,6 +63,8 @@ module ATD
 
 		attr_reader :headers, :action, :method, :output, :asset
 
+		##
+		# Initializes a path, saving them all in class variables and also manages duplicates.
 		def initialize(path, headers, action, method, output, asset = false)
 			puts "PREV PATH: #{@@paths[path]}"
 			if !@@paths[path].nil? && !asset
@@ -94,15 +92,32 @@ module ATD
 			@@paths
 		end
 
+		##
+		# Manages the creation of verb methods for use in the main method to create various paths
 		module Verbs
-			[:get, :post].each do |name|
+			@@allowed_verbs = [:get, :post]
+
+			##
+			# Returns an array of the allowed http verbs as symbols (e.g. :get, :post)
+			def self.allowed_verbs
+				@@allowed_verbs
+			end
+
+			##
+			# Defines a methos for each http verb that creats an instance of ATD::Path for it
+			@@allowed_verbs.each do |name|
 				define_method(name) do |path, output = "Hello World!", headers = nil, &block|
 					ATD::Path.new(path,headers,block,name,output)
 				end
 			end
 		end
 
+		##
+		# Allows ATD::Server's start method to compile the static assets into routes
 		module Assets
+
+			##
+			# Takes all the files in the assets directory and creates routes from them
 			def self.setup
 				(Dir.entries("assets")-["..","."]).each do |i|
 					ATD::Path.new("/#{i}",nil,nil,:get,i,true)
@@ -111,7 +126,13 @@ module ATD
 		end
 	end
 
+	##
+	# This module is responsible for delegating http verb unique parsing methods. Currently doesn't do much.
 	module RequestHandlers
+
+		##
+		# Processes get routes. Returns either the filename or plaintext output, and sends it back to ATD::App, where it is then sent to ATD::Renerers.
+		# The call could be shorter if you skiped the sending to ATD::App and just sent the ouput streight to ATD::Renderers.
 		def self.get
 			all
 			if !Path.paths[App.path_info].output.is_a?(Hash)
@@ -121,16 +142,23 @@ module ATD
 			end
 		end
 
+		##
+		# Processes post routes. It currently just processes the action by calling all
 		def self.post
 			all
 		end
 
-		def self.all
+		##
+		# Because all paths need their action called, so this method does it, and is called by all the other ATD::RequestHandlers
+		def all
 			Path.paths[App.path_info].action.call unless Path.paths[App.path_info].action == nil
 		end
 	end
 
 	module Renderers
+
+		##
+		# As input it takes a filename, checks if it's in the assets folder, then parses it using the other methods in ATD::Renderers and once it reaches the last extension, returns it and also finds the mime_type.
 		def self.parse(filename)
 			mime_type = "text/plain"
 			file = filename
@@ -143,10 +171,6 @@ module ATD
 				end
 			end
 			return {:content => file, :"content-type" => mime_type}
-		end
-		def parse(filename)
-			puts "Parse method called\n\n\n\n\n\n"
-			Renderers.parse(filename)
 		end
 
 		##
@@ -170,13 +194,12 @@ module ATD
 	# Manages the (currently only webrick) server
 	
 	module Server
+
+		##
+		# Creates routes for all the assets, then starts a WEBrick server.
 		def start
 			ATD::Path::Assets.setup
 			Rack::Server.start(:app =>ATD::App, :server => WEBrick)
-		end
-
-		def stop
-			Rack::Server.stop
 		end
 	end
 
