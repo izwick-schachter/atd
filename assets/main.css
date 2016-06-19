@@ -1,0 +1,60 @@
+html,body {padding:0;margin:0;width:100%;height:100%;}
+		.container {
+			background-color:#A5A5A5;
+			width:100%;
+			height:100%;
+			position:absolute;
+		}
+		.black-container {
+			width:100%;
+			height:70%;
+			background-color:black;
+			margin-top:5%;
+			text-align:center;
+		}
+		.title {
+			font-style:italic;
+			font-size:910%;
+		}
+		* {
+			font-family:sans-serif;
+		}
+		.white {
+			color:#FFFFFF;
+			font-size:100%;
+		}
+		.big {
+			font-size:116%;
+		}
+		.grey {
+			color:#7F7F7F;
+			font-size:87%;
+			position: relative;
+			bottom:6px;
+		}
+		.subtitle {
+			background-color:white;
+			width:84%;
+			margin:auto;
+			margin-top:8%;
+			padding:1%;
+			z-index:10;
+		}
+		#subtitle {
+			font-size:500%;
+			z-index:10;
+			position:relative;
+			font-style:italic;
+		}
+		super {
+			font-size:40%;
+			vertical-align: text-top;
+		}
+		#swirl {
+			position: absolute;
+			top: 31%;
+			width: 65%;
+			left: 17.5%;
+			height: 59%;
+			z-index:5;
+		}
