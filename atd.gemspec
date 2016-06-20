@@ -1,13 +1,14 @@
+require "./lib/version.rb"
+
 Gem::Specification.new do |s|
   s.name        = 'atd'
-  s.version     = '0.0.3'
+  s.version     = ATD.version
   s.date        = '2016-04-31'
   s.summary     = "A gem with the simplicity of sinatra, but the scalability of rails."
   s.description = "Allow this gem to give your gem some direction with it's easy to use 1 line method, and asset parsing/precompilation. Also, it's beautiful smoke test."
   s.authors     = ["Isaiah Zwick-Schachter"]
   s.email       = 'izwick.schachter@gmail.com'
-  # s.files       = ["lib/atd.rb", "assets/bg.png", "assets/companyname.website.html"]
-  s.files       = ["lib/atd.rb"]+Dir["assets/*"]
+  s.files       = Dir["lib/*"]+Dir["lib/atd/*"]+Dir["assets/*"]
   s.homepage    =
     'https://github.com/izwick-schachter/atd'
   s.license       = 'MIT'
