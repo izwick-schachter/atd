@@ -123,6 +123,7 @@ routes</p>
           <div class="method-source-code" id="setup-source">
             <pre><span class="ruby-comment"># File lib/atd.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-string">&quot;assets&quot;</span>
         (<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-string">&quot;assets&quot;</span>)<span class="ruby-operator">-</span>[<span class="ruby-string">&quot;..&quot;</span>,<span class="ruby-string">&quot;.&quot;</span>]).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
                 <span class="ruby-constant">ATD</span><span class="ruby-operator">::</span><span class="ruby-constant">Path</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;/#{i}&quot;</span>,<span class="ruby-keyword">nil</span>,<span class="ruby-keyword">nil</span>,<span class="ruby-value">:get</span>,<span class="ruby-identifier">i</span>,<span class="ruby-keyword">true</span>)
         <span class="ruby-keyword">end</span>

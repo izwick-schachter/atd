@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>companyname.website.html - RDoc Documentation</title>
+<title>main.css - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -72,27 +72,69 @@
   </div>
 </nav>
 
-<main role="main" aria-label="Page assets/companyname.website.html">
+<main role="main" aria-label="Page assets/main.css">
 
-<p>&lt;!DOCTYPE html&gt; &lt;html&gt;</p>
+<p>html,body {padding:0;margin:0;width:100%;height:100%;}</p>
 
-<pre>&lt;head&gt;
-        &lt;title&gt;CompanyName.Website&lt;/title&gt;
-        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./main.css&quot;&gt;
-&lt;/head&gt;
-&lt;body&gt;
-        &lt;div class=&quot;container&quot;&gt;
-                &lt;div class=&quot;black-container&quot;&gt;
-                        &lt;span class=&quot;title&quot;&gt;&lt;span class=&quot;white&quot;&gt;&lt;span class=&quot;big&quot;&gt;C&lt;/span&gt;OMPANY&lt;span class=&quot;big&quot;&gt;N&lt;/span&gt;AME&lt;/span&gt;&lt;span class=&quot;grey&quot;&gt;.WEBSITE&lt;/span&gt;&lt;/span&gt;
-                        &lt;div class=&quot;subtitle&quot;&gt;
-                                &lt;span id=&quot;subtitle&quot;&gt;IF YOU&#39;RE READING THIS, THE WEB&lt;br&gt;SERVER WAS INSTALLED CORRECTLY.&lt;super&gt;TM&lt;/super&gt;&lt;/span&gt;
-                        &lt;/div&gt;
-                        &lt;img src=&quot;./bg.png&quot; id=&quot;swirl&quot;&gt;
-                &lt;/div&gt;
-        &lt;/div&gt;
-&lt;/body&gt;</pre>
-
-<p>&lt;/html&gt;</p>
+<pre>.container {
+        background-color:#A5A5A5;
+        width:100%;
+        height:100%;
+        position:absolute;
+}
+.black-container {
+        width:100%;
+        height:70%;
+        background-color:black;
+        margin-top:5%;
+        text-align:center;
+}
+.title {
+        font-style:italic;
+        font-size:910%;
+}
+* {
+        font-family:sans-serif;
+}
+.white {
+        color:#FFFFFF;
+        font-size:100%;
+}
+.big {
+        font-size:116%;
+}
+.grey {
+        color:#7F7F7F;
+        font-size:87%;
+        position: relative;
+        bottom:6px;
+}
+.subtitle {
+        background-color:white;
+        width:84%;
+        margin:auto;
+        margin-top:8%;
+        padding:1%;
+        z-index:10;
+}
+#subtitle {
+        font-size:500%;
+        z-index:10;
+        position:relative;
+        font-style:italic;
+}
+super {
+        font-size:40%;
+        vertical-align: text-top;
+}
+#swirl {
+        position: absolute;
+        top: 31%;
+        width: 65%;
+        left: 17.5%;
+        height: 59%;
+        z-index:5;
+}</pre>
 </main>
 
 

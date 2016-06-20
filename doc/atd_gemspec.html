@@ -62,6 +62,8 @@
   
     <li><a href="./assets/companyname_website_html.html">companyname.website.html</a>
   
+    <li><a href="./assets/main_css.html">main.css</a>
+  
     <li><a href="./atd_gemspec.html">atd.gemspec</a>
   
   </ul>
@@ -78,15 +80,17 @@
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">version</span>     = <span class="ruby-string">&#39;0.0.3&#39;</span>
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">date</span>        = <span class="ruby-string">&#39;2016-04-31&#39;</span>
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">summary</span>     = <span class="ruby-string">&quot;A gem with the simplicity of sinatra, but the scalability of rails.&quot;</span>
-<span class="ruby-comment"># s.description = &quot;A gem with the simplicity of sinatra, but the scalability of rails.&quot;</span>
+<span class="ruby-identifier">s</span>.<span class="ruby-identifier">description</span> = <span class="ruby-string">&quot;Allow this gem to give your gem some direction with it&#39;s easy to use 1 line method, and asset parsing/precompilation. Also, it&#39;s beautiful smoke test.&quot;</span>
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">authors</span>     = [<span class="ruby-string">&quot;Isaiah Zwick-Schachter&quot;</span>]
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">email</span>       = <span class="ruby-string">&#39;izwick.schachter@gmail.com&#39;</span>
-<span class="ruby-identifier">s</span>.<span class="ruby-identifier">files</span>       = [<span class="ruby-string">&quot;lib/atd.rb&quot;</span>]
+<span class="ruby-comment"># s.files       = [&quot;lib/atd.rb&quot;, &quot;assets/bg.png&quot;, &quot;assets/companyname.website.html&quot;]</span>
+<span class="ruby-identifier">s</span>.<span class="ruby-identifier">files</span>       = [<span class="ruby-string">&quot;lib/atd.rb&quot;</span>]<span class="ruby-operator">+</span><span class="ruby-constant">Dir</span>[<span class="ruby-string">&quot;assets/*&quot;</span>]
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">homepage</span>    =
   <span class="ruby-string">&#39;https://github.com/izwick-schachter/atd&#39;</span>
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">license</span>       = <span class="ruby-string">&#39;MIT&#39;</span>
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">executables</span> = [<span class="ruby-string">&quot;atd&quot;</span>]
 <span class="ruby-identifier">s</span>.<span class="ruby-identifier">add_runtime_dependency</span> <span class="ruby-string">&quot;rack&quot;</span>, <span class="ruby-string">&quot;~&gt; 1.6&quot;</span>
+<span class="ruby-identifier">s</span>.<span class="ruby-identifier">add_runtime_dependency</span> <span class="ruby-string">&quot;jewel&quot;</span>, <span class="ruby-string">&quot;~&gt; 0.0&quot;</span>
 </pre>
 
 <p>end</p>

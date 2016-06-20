@@ -63,11 +63,11 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-all">::all</a>
+    
     <li ><a href="#method-c-get">::get</a>
     
     <li ><a href="#method-c-post">::post</a>
-    
-    <li ><a href="#method-i-all">#all</a>
     
   </ul>
 </div>
@@ -106,6 +106,41 @@ Currently doesn&#39;t do much.</p>
        </header>
 
     
+      <div id="method-c-all" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Because all paths need their action called, so this method does it, and is
+called by all the other <a
+href="RequestHandlers.html">ATD::RequestHandlers</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="all-source">
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 154</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">all</span>
+        <span class="ruby-constant">Path</span>.<span class="ruby-identifier">paths</span>[<span class="ruby-constant">App</span>.<span class="ruby-identifier">path_info</span>].<span class="ruby-identifier">action</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Path</span>.<span class="ruby-identifier">paths</span>[<span class="ruby-constant">App</span>.<span class="ruby-identifier">path_info</span>].<span class="ruby-identifier">action</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-c-get" class="method-detail ">
         
         <div class="method-heading">
@@ -129,7 +164,7 @@ href="Renderers.html">ATD::Renderers</a>.</p>
 
           
           <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 136</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get</span>
         <span class="ruby-identifier">all</span>
         <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">Path</span>.<span class="ruby-identifier">paths</span>[<span class="ruby-constant">App</span>.<span class="ruby-identifier">path_info</span>].<span class="ruby-identifier">output</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
@@ -168,52 +203,9 @@ all</p>
 
           
           <div class="method-source-code" id="post-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 147</span>
+            <pre><span class="ruby-comment"># File lib/atd.rb, line 148</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">post</span>
         <span class="ruby-identifier">all</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Instance Methods</h3>
-       </header>
-
-    
-      <div id="method-i-all" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">all</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Because all paths need their action called, so this method does it, and is
-called by all the other <a
-href="RequestHandlers.html">ATD::RequestHandlers</a></p>
-          
-          
-
-          
-          <div class="method-source-code" id="all-source">
-            <pre><span class="ruby-comment"># File lib/atd.rb, line 153</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">all</span>
-        <span class="ruby-constant">Path</span>.<span class="ruby-identifier">paths</span>[<span class="ruby-constant">App</span>.<span class="ruby-identifier">path_info</span>].<span class="ruby-identifier">action</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Path</span>.<span class="ruby-identifier">paths</span>[<span class="ruby-constant">App</span>.<span class="ruby-identifier">path_info</span>].<span class="ruby-identifier">action</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
