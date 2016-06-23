@@ -2,6 +2,7 @@ require "rack"
 require_relative "atd/path.rb"
 require_relative "atd/server.rb"
 require_relative "atd/handlers.rb"
+require_relative "version.rb"
 
 # TODO: Add asset pipeline
 # TODO: Test Driven Development

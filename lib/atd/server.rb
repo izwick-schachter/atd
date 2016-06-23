@@ -3,13 +3,6 @@ module ATD
 	class App
 
 		##
-		# Allows ATD::RequestHandlers to access env["PATH_INFO"]
-
-		def self.path_info
-			@@path_info
-		end
-
-		##
 		# The real rack app
 
 		def self.call(env)
@@ -20,7 +13,8 @@ module ATD
 			status_code = 200
 			##
 			# Checks if a path doesn't exist. If it doesn't exist return 404
-			if Path.paths[env["PATH_INFO"]].nil?
+			puts "EXPRESSION: Path[#{env["REQUEST_METHOD"].downcase.to_sym}, #{env["PATH_INFO"]}] == #{Path[env["REQUEST_METHOD"].downcase, env["PATH_INFO"]]}"
+			if Path[env["REQUEST_METHOD"].downcase, env["PATH_INFO"]].empty?
 				page.push("404 Error: Path Not Found")
 				status_code = 404
 			else
@@ -31,14 +25,19 @@ module ATD
 				@@path_info = env["PATH_INFO"]
 				##
 				# 2. Sets ouput to wherever ATD::RequestHandlers returns from RequestHandlers.get / .post call
-				output = RequestHandlers.public_send(Path.paths[env["PATH_INFO"]].method) if Path::Verbs.allowed_verbs.include? Path.paths[env["PATH_INFO"]].method.downcase
+				output = RequestHandlers.route(env["REQUEST_METHOD"],env["PATH_INFO"])
 				##
 				# 3. Converts ouput to a usable rack ouput
-				headers["content-type"] = output[:"content-type"]
-				page.push(output[:content])
+				if output[:"content-type"].nil?
+					status_code = 204
+				else
+					headers["content-type"] = output[:"content-type"]
+					page.push(output[:content])
+				end
 			end
 			##
 			# Returns the resulting packet
+			puts [status_code, headers, page].to_s
 			return [status_code, headers, page]
 		end
 	end

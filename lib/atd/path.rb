@@ -3,7 +3,7 @@ module ATD
 	# Manages all the initally created paths.
 	# They're all stored here, and this class is queried by the ATD::App.call (rack server) to check if a path exists
 	class Path
-		@@paths = {}
+		@@paths = []
 
 		@asset = false
 		@headers = nil
@@ -16,10 +16,10 @@ module ATD
 		##
 		# Initializes a path, saving them all in class variables and also manages duplicates.
 		def initialize(path, headers, action, method, output, asset = false)
-			if !@@paths[path].nil? && !asset
+			if !Path[method,path].empty? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
 			else
-				if !asset || @@paths[path].nil?
+				if !asset || Path[method,path].empty?
 					puts "Path #{path} initialized"
 					@asset = asset
 					@headers = headers #Why...?
@@ -27,7 +27,7 @@ module ATD
 					@method = method # code
 					@output = Renderers.parse(output)
 					puts "@output: #{@output}"
-					@@paths[path] = self
+					@@paths.push [path, method, self]
 				else
 					puts "Asset #{path} skipped"
 				end
@@ -35,10 +35,31 @@ module ATD
 		end
 
 		##
-		# Returns all the paths that exist. Queried by the ATD::App.call (rack server)
-
+		# Returns an instance of path corresponding to the method or path inputted. If either of them is nil, it returns an arry of the format [[path,method,instance],[path,method,instance]] which includes all the paths
+		
 		def self.paths
 			@@paths
+		end
+		def paths.[](arg1=nil,arg2=nil)
+			Path[arg1,arg2]
+		end
+		#			GET			/
+		def self.[](method=nil,path = nil)
+			return @@paths if path.nil? && method.downcase.to_sym.nil?
+			puts "SITUATION: #{method} #{path} (They're both not nil)"
+			if path.nil?
+				paths = @@paths.select{|spath,smethod,sinst| method.downcase.to_sym==smethod}
+			elsif method.nil?
+				paths = @@paths.select{|spath,smethod,sinst| method.downcase.to_sym==smethod}
+			else
+				puts "Good. They both haz values"
+				paths = @@paths.select{|spath,smethod,sinst| method.downcase.to_sym==smethod && path==spath}
+				puts "Just pulled #{paths} for it"
+			end
+			final=[]
+
+			paths.each{|path| final.push path[2]}
+			return final
 		end
 
 		##

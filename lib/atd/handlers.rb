@@ -3,28 +3,34 @@ module ATD
 	# This module is responsible for delegating http verb unique parsing methods. Currently doesn't do much.
 	module RequestHandlers
 
+		def self.route(verb, path)
+			return {:"content-type" => "text/plain", :content => "Error"} if !Path::Verbs.allowed_verbs.include? verb.downcase.to_sym
+			@@path_info = path
+			@@path = Path[verb,path]
+			send(verb.downcase)
+		end
+
 		##
 		# Processes get routes. Returns either the filename or plaintext output, and sends it back to ATD::App, where it is then sent to ATD::Renerers.
 		# The call could be shorter if you skiped the sending to ATD::App and just sent the ouput streight to ATD::Renderers.
 		def self.get
 			all
-			if !Path.paths[App.path_info].output.is_a?(Hash)
-				return {:"content-type" => "text/plain", :content => Path.paths[App.path_info].output}
-			else
-				return Path.paths[App.path_info].output
-			end
+			{:"content-type" => "text/plain", :content => @@path[0].output} if !@@path[0].output.is_a?(Hash)
+			@@path[0].output
 		end
 
 		##
 		# Processes post routes. It currently just processes the action by calling all
 		def self.post
 			all
+			return {:"content-type" => nil, :content => nil}
 		end
 
 		##
 		# Because all paths need their action called, so this method does it, and is called by all the other ATD::RequestHandlers
 		def self.all
-			Path.paths[App.path_info].action.call unless Path.paths[App.path_info].action == nil
+			paths = @@path[0]
+			paths.action.call unless paths.nil? || paths.action.nil?
 		end
 	end
 
