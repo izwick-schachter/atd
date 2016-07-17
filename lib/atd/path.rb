@@ -80,6 +80,18 @@ module ATD
 					ATD::Path.new(path,headers,block,name,output)
 				end
 			end
+
+			module Routes
+				class << self
+					Verbs.allowed_verbs.each do |name|
+						define_method(name.to_s) do |routes_hash|
+							routes_hash.each do |route,asset|
+								ATD::Path.new(route,nil,nil,:get,asset,false)
+							end
+						end
+					end
+				end
+			end
 		end
 
 		##
@@ -96,4 +108,4 @@ module ATD
 			end
 		end
 	end
-end
+end 

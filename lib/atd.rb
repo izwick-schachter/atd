@@ -28,9 +28,9 @@ module ATD
 
 		##
 		# Creates routes for all the assets, then starts a WEBrick server.
-		def start
+		def self.start
 			ATD::Path::Assets.setup
-			Rack::Server.start(:app =>ATD::App, :server => WEBrick)
+			Rack::Server.start(:app =>ATD::App, :server => "WEBrick")
 		end
 	end
 
@@ -41,5 +41,8 @@ end
 class Object
 	include ATD::Path::Verbs
 	include ATD::Renderers
-	include ATD::Server
+end
+
+at_exit do
+	ATD::Server.start
 end

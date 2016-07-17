@@ -24,9 +24,19 @@ Now you're all set to begin making anything your heart desires.
 
 Currently, ATD is not complete, and only has limited functionallity availible. It does have the simplicity to create get and post routes.
 
-To create a get route:
+To create a route you can use 1 of 2 possible methods. The simpler one is:
 
-`get "<location>", "<output>"`
+```Routes.<http method>({"<path>"=>"<output file>","<other path>" => <output file>})```
+
+or the more advanced method being:
+
+```<http method> "<path>", "<output>" do
+	# Whatever code you want to execute
+end```
+
+For this method, the block is optional so it can also just be called as:
+
+```<http method> "<path>", "<output>"```
 
 This is the most basic fuctionality. The framework is designed so that it can gradually be build upon.
 
@@ -36,10 +46,19 @@ The next step would be to generate some basic assets with
 
 This command will generate an assets folder, in which you can put all of your assets. These will all be immediatly accessable at `/<asset_name>`. You can also put assets in subdirectories to have then accesable using the directory path with the root path being `/assets/`.
 
+## Supported Asset Types
+
+Currenly ATD only supports the following asset types/file extensions:
+ - HTML (`<name>.html`)
+ - CSS (`<name>.css`)
+
+ATD will also compress your assets before sending them. For example, line breaks are removed from css documents to speed up your page.
+
 ## Todo List
 
 1. Enable access to a params hash in the routes
 2. Further investigate on how to imitate Volt
+3. Support leaving off file extensions when naming assets in routes
 
 ## Change Log
 
@@ -55,6 +74,10 @@ This command will generate an assets folder, in which you can put all of your as
 0.0.3:
  - Completed documentation for existing methods
  - Removed duplicate methods
+
+0.0.4:
+ - Added alternate route creation method (`Routes.get({"/foo"=>"bar.html"})`)
+ - Setup server autostart so that the `start` method didn't need to be at the end of all files
 
 ## Contributing
 ##### Any help you can give would be increbible, please don't be shy

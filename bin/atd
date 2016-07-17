@@ -16,7 +16,7 @@ when "new"
 	create_message("app file") do
 		app = File.new("app.rb", "w")
 
-		app.puts "require \"atd\"\nrequire \"webrick\"\n\n# Here is where you write your code. Below is a sample Hello World route.\nget \"/\", \"Hello World!\"\n\nstart"
+		app.puts "require \"atd\"\nrequire \"webrick\"\n\n# Here is where you write your code. Below is a sample Hello World route.\nget \"/\", \"Hello World!\""
 
 		app.close
 	end

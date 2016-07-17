@@ -59,7 +59,7 @@ module ATD
 		end
 
 		def css(file)
-			return file.gsub(/(\s|\t|\n)/,"")
+			return file.gsub(/(\t|\n)/,"")
 		end
 	end
 end
