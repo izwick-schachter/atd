@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = ATD.version
   s.date        = '2016-04-31'
   s.summary     = "A gem with the simplicity of sinatra, but the scalability of rails."
-  s.description = "Allow this gem to give your gem some direction with it's easy to use 1 line method, and asset parsing/precompilation. Also, it's beautiful smoke test."
+  s.description = "Allow this gem to give your web app some direction with easy, 1 line hello world routes, asset precompilation, and xkcd inspired smoke test."
   s.authors     = ["Isaiah Zwick-Schachter"]
   s.email       = 'izwick.schachter@gmail.com'
   s.files       = Dir["lib/*"]+Dir["lib/atd/*"]+Dir["assets/*"]
@@ -14,5 +14,6 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
   s.executables = ["atd"]
   s.add_runtime_dependency "rack", "~> 1.6"
-  s.add_runtime_dependency "jewel", "~> 0.0"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rack-test"
 end
