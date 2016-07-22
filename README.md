@@ -30,9 +30,11 @@ To create a route you can use 1 of 2 possible methods. The simpler one is:
 
 or the more advanced method being:
 
-```<http method> "<path>", "<output>" do
+```
+<http method> "<path>", "<output>" do
 	# Whatever code you want to execute
-end```
+end
+```
 
 For this method, the block is optional so it can also just be called as:
 
