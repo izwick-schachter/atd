@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
     'https://github.com/izwick-schachter/atd'
   s.license       = 'MIT'
   s.executables = ["atd"]
-  s.add_runtime_dependency "rack", "~> 1.6"
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "rack-test"
+  s.add_runtime_dependency "rack", "~> 2"
+  s.add_development_dependency "rspec", "~> 3"
+  s.add_development_dependency "rack-test", "~> 0"
 end
