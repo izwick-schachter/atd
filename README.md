@@ -115,6 +115,12 @@ Failure! /fred !=> sean.html (/fred => fred.html)
  - Added alternate route creation method (`Routes.get({"/foo"=>"bar.html"})`)
  - Setup server autostart so that the `start` method didn't need to be at the end of all files
 
+0.0.5:
+ - Cleaned up discription
+
+0.0.6:
+ #### In progress
+
 ## Issues/Bugs/Feature Requests
 
 Use the github issue tracker.
