@@ -70,5 +70,7 @@ module ATD
 
 		def js(file)
 			return file
+		end
+		
 	end
 end

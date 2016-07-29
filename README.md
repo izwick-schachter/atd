@@ -147,6 +147,10 @@ What else is new in 0.1.0?
  - We have now added the posibility to use custom renderers, which can be included as discribed in the renderers section of this page.
  - Our todo list has been moved from here to githubs issue tracker, where it will be much easier to manage.
 
+0.1.1:
+And promptly after that optimisic "No more bugs!" in the last version we have our first bug! I forgot to put "end" in handlers.rb.
+
+
 ## Issues/Bugs/Feature Requests
 
 Use the github issue tracker.
