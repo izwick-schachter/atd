@@ -35,7 +35,7 @@ module ATD
 	end
 
 	module Renderers
-		@@permisible_filetypes = ["html", "css"]
+		@@permisible_filetypes = Renderers.instance_methods
 		##
 		# As input it takes a filename, checks if it's in the assets folder, then parses it using the other methods in ATD::Renderers and once it reaches the last extension, returns it and also finds the mime_type.
 		def self.parse(filename)
@@ -44,9 +44,15 @@ module ATD
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
-					break unless @@permisible_filetypes.include? i
-					file = send("#{i}",file)
-					mime_type = "text/#{i}"
+					break unless @@permisible_filetypes.include? i.to_sym
+					details = send("#{i}",file)
+					if details.class == Hash then
+						file = details[:file]
+						mime_type = details[:mime_type]
+					else
+						file = details
+						mime_type = "text/#{i}"
+					end
 				end
 			end
 			return {:content => file, :"content-type" => mime_type}
@@ -61,5 +67,8 @@ module ATD
 		def css(file)
 			return file.gsub(/(\t|\n)/,"")
 		end
+
+		def js(file)
+			return file
 	end
 end
