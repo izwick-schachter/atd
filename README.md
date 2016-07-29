@@ -70,48 +70,6 @@ module ATD::Renderers
 end
 ```
 
-## Todo List
-
-1. Enable access to a params hash in the routes
-2. Further investigate on how to emulate Volt and Sinatra
-3. Support leaving off file extensions when naming assets in routes
-4. Add websockets implimentations
-5. Support various templating engines (and allow users to add their own)
-6. Add helper method support
-7. Allow more custimization (users adding their own "gem" methods and packaging them as gems and distributing them)
-8. Autotesting
- 	Example
-
-```
-	get "/", "page.html" do
-		if ???
-			should do
-				return "page.html"
-			end
-		elsif ???
-			should do
-				redirect "/"
-			end
-		end
-	end
-```
-
-Output example (not related to input above):
-
-```
-assumes /test should return test.html
-assumes /fred should return sean.html
-
-Sucess! /test -> test.html
-Failure! /fred !=> sean.html (/fred => fred.html)
-```
-
-9. Test this framework
-10. Enable controller structure (file seperation, rails style)
-11. Opal integration
-12. Setup auto updating of server as file is saved again (have gem query file directly each time during development)
-13. Add different behaviors for different enviroments
-
 ## Change Log
 
 0.0.1:
@@ -151,7 +109,7 @@ What else is new in 0.1.0?
 And promptly after that optimisic "No more bugs!" in the last version we have our first bug! I forgot to put "end" in handlers.rb.
 
 
-## Issues/Bugs/Feature Requests
+## Issues/Bugs/Feature Requests/Todo list
 
 Use the github issue tracker.
 
