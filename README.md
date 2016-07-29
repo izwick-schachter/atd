@@ -48,13 +48,27 @@ The next step would be to generate some basic assets with
 
 This command will generate an assets folder, in which you can put all of your assets. These will all be immediatly accessable at `/<asset_name>`. You can also put assets in subdirectories to have then accesable using the directory path with the root path being `/assets/`.
 
-## Supported Asset Types
+## Renderers
 
-Currenly ATD only supports the following asset types/file extensions:
+In ATD renderers are the last thing between your files and the client. The way they work is that they will take your files and compress, parse, and process them and set their mime types before they are sent out.
+
+Currenly, by default, ATD only supports the following asset types/file extensions:
  - HTML (`<name>.html`)
  - CSS (`<name>.css`)
+ - JS (`<name>.js`)
 
-ATD will also compress your assets before sending them. For example, line breaks are removed from css documents to speed up your page.
+You can create custom renderers by modifiying ATD::Renderers. This must be done at the top of your file, before those renderers are used. If they are defined afterwards, they will then not be applied. We recommend putting them in a seperate file and then requiring it in your main file. Each renderer should have the method name of the filetype it is managing. It will be given one argument, the file it is parsing, and must either return a string (some modifieied version of the input file) or a hash which can include `:file` set to the file to be returned and/or `:mime_type` set to the mime_type to be returned. Here is how it would be done (for a javascript file):
+
+```
+module ATD::Renderers
+	
+	require "erb"
+
+	def erb(file)
+		return {:file => ERB.new(file).result(), :mime_type => "text/html"}
+	end
+end
+```
 
 ## Todo List
 
@@ -120,8 +134,22 @@ Failure! /fred !=> sean.html (/fred => fred.html)
 0.0.5:
  - Cleaned up discription
 
-0.0.6:
- #### In progress
+0.1.0:
+Yay! Our first minor version! The reason for this is becasue we have begun to follow a stricter versioning scheme. Here are our rules:
+
+    Major.minor.bugfix
+
+Major version number 1 will indicate readiness for public use. Major versions will include non-backwards compatable changes and will be for large systemic changes in the way things are written and/or the way the program works.
+Minor versions will be for backwards compatible new features and backwards compatible modifications or code cleanup.
+Bugfix versions will be for... well... bugfixs, which we hope to never need.
+
+What else is new in 0.1.0?
+ - We have now added the posibility to use custom renderers, which can be included as discribed in the renderers section of this page.
+ - Our todo list has been moved from here to githubs issue tracker, where it will be much easier to manage.
+
+0.1.1:
+And promptly after that optimisic "No more bugs!" in the last version we have our first bug! I forgot to put "end" in handlers.rb.
+
 
 ## Issues/Bugs/Feature Requests
 
