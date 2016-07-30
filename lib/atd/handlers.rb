@@ -45,14 +45,16 @@ module ATD
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
 					break unless @@permisible_filetypes.include? i.to_sym
-					details = send("#{i}",file)
-					if details.class == Hash then
-						file = details[:file]
-						mime_type = details[:mime_type]
-					else
-						file = details
-						mime_type = "text/#{i}"
-					end
+					#begin
+						details = send("#{i}",file)
+						if details.class == Hash then
+							file = details[:file]
+							mime_type = details[:mime_type]
+						else
+							file = details
+							mime_type = "text/#{i}"
+						end
+					#rescue
 				end
 			end
 			return {:content => file, :"content-type" => mime_type}
