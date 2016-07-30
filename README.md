@@ -57,7 +57,7 @@ Currenly, by default, ATD only supports the following asset types/file extension
  - CSS (`<name>.css`)
  - JS (`<name>.js`)
 
-You can create custom renderers by modifiying ATD::Renderers. This must be done at the top of your file, before those renderers are used. If they are defined afterwards, they will then not be applied. We recommend putting them in a seperate file and then requiring it in your main file. Each renderer should have the method name of the filetype it is managing. It will be given one argument, the file it is parsing, and must either return a string (some modifieied version of the input file) or a hash which can include `:file` set to the file to be returned and/or `:mime_type` set to the mime_type to be returned. Here is how it would be done (for a javascript file):
+You can create custom renderers by modifiying ATD::Renderers. This must be done at the top of your file, before those renderers are used. If they are defined afterwards, they will then not be applied. We recommend putting them in a seperate file and then requiring it in your main file. Each renderer should have the method name of the filetype it is managing. It will be given one argument, the file it is parsing, and must either return a string (some modifieied version of the input file) or a hash which can include `:file` set to the file to be returned and/or `:mime_type` set to the mime_type to be returned. Here is how it would be done (for a .erb file):
 
 ```
 module ATD::Renderers
