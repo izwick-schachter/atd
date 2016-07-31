@@ -35,7 +35,6 @@ module ATD
 	end
 
 	module Renderers
-		@@permisible_filetypes = Renderers.instance_methods
 		##
 		# As input it takes a filename, checks if it's in the assets folder, then parses it using the other methods in ATD::Renderers and once it reaches the last extension, returns it and also finds the mime_type.
 		def self.parse(filename)
@@ -44,7 +43,7 @@ module ATD
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
-					break unless @@permisible_filetypes.include? i.to_sym
+					break unless Renderers.permisible_filetypes.include? i.to_sym
 					details = send("#{i}",file)
 					if details.class == Hash then
 						file = details[:file]
@@ -58,8 +57,8 @@ module ATD
 			return {:content => file, :"content-type" => mime_type}
 		end
 
-		def self.permissible_filetypes
-			@@permissible_filetypes
+		def self.permisible_filetypes
+			Renderers.instance_methods
 		end
 
 		##
