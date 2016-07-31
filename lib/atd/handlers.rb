@@ -58,6 +58,10 @@ module ATD
 			return {:content => file, :"content-type" => mime_type}
 		end
 
+		def self.permissible_filetypes
+			@@permissible_filetypes
+		end
+
 		##
 		# Parses an html file (in this case, there is nothing to be parsed, it simply returns an html file.)
 		def html(file)
