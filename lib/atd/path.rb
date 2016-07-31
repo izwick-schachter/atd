@@ -21,7 +21,6 @@ module ATD
 			else
 				if !asset || Path[method,path].empty?
 					puts "Path #{path} initialized"
-					puts "#{ATD::Renderers.permisible_filetypes}.include? #{output.split(".").last}"
 					unless ATD::Renderers.permisible_filetypes.include? output.split(".").last.to_sym
 						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
 					end
@@ -37,7 +36,6 @@ module ATD
 						puts "Changed output from #{old} to #{output}"
 					end
 					@output = Renderers.parse(output)
-					puts "@output: #{@output}"
 					@@paths.push [path, method, self]
 				else
 					puts "Asset #{path} skipped"
@@ -57,15 +55,12 @@ module ATD
 		#			GET			/
 		def self.[](method=nil,path = nil)
 			return @@paths if path.nil? && method.downcase.to_sym.nil?
-			puts "SITUATION: #{method} #{path} (They're both not nil)"
 			if path.nil?
 				paths = @@paths.select{|spath,smethod,sinst| method.downcase.to_sym==smethod}
 			elsif method.nil?
 				paths = @@paths.select{|spath,smethod,sinst| method.downcase.to_sym==smethod}
 			else
-				puts "Good. They both haz values"
 				paths = @@paths.select{|spath,smethod,sinst| method.downcase.to_sym==smethod && path==spath}
-				puts "Just pulled #{paths} for it"
 			end
 			final=[]
 
