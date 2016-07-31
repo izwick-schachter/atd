@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = "Allow this gem to give your web app some direction with easy, 1 line hello world routes, asset precompilation, and xkcd inspired smoke test."
   s.authors     = ["Isaiah Zwick-Schachter"]
   s.email       = 'izwick.schachter@gmail.com'
-  s.files       = Dir["lib/*"]+Dir["lib/atd/*"]+Dir["assets/*"]
+  s.files       = Dir["lib/*"]+Dir["lib/atd/*"]+Dir["assets/*/*"]
   s.homepage    =
     'https://github.com/izwick-schachter/atd'
   s.license       = 'MIT'
