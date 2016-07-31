@@ -22,9 +22,6 @@ module ATD
 				if !asset || Path[method,path].empty?
 					puts "Path #{path} initialized"
 					puts "#{ATD::Renderers.permisible_filetypes}.include? #{output.split(".").last}"
-					unless ATD::Renderers.permisible_filetypes.include? output.split(".").last.to_sym
-						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
-					end
 					@asset = asset
 					@headers = headers #Why...?
 					@action = action # http meth
@@ -35,6 +32,9 @@ module ATD
 							output = i if i.start_with? output
 						end
 						puts "Changed output from #{old} to #{output}"
+					end
+					unless ATD::Renderers.permisible_filetypes.include? output.split(".").last.to_sym
+						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
 					end
 					@output = Renderers.parse(output)
 					puts "@output: #{@output}"
