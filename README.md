@@ -108,6 +108,9 @@ What else is new in 0.1.0?
 0.1.1:
 And promptly after that optimisic "No more bugs!" in the last version we have our first bug! I forgot to put "end" in handlers.rb.
 
+0.2.0:
+ - Added self detecting file extensions, so if you don't want to type out the whole asset name, you can just end it in a . (assuming no similarly named files), and the program will autoresolve the extension.
+
 
 ## Issues/Bugs/Feature Requests/Todo list
 
