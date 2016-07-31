@@ -14,19 +14,11 @@ when "new"
 	end
 
 	create_message("app file") do
-		app = File.new("app.rb", "w")
-
-		app.puts "require \"atd\"\nrequire \"webrick\"\n\n# Here is where you write your code. Below is a sample Hello World route.\nget \"/\", \"Hello World!\""
-
-		app.close
+		FileUtils.cp(File.expand_path(File.dirname(__FILE__)+"/../assets/new_app/app.rb"), '.')
 	end
 
 	create_message("Gemfile") do
-		gemfile = File.new("Gemfile", "w")
-
-		gemfile.puts "source \"https://rubygems.org\"\n\ngem \"atd\"\ngem \"webrick\""
-
-		gemfile.close
+		FileUtils.cp(File.expand_path(File.dirname(__FILE__)+"/../assets/new_app/Gemfile"), '.')
 	end
 
 	puts "Running bundle install...\n\n"
@@ -46,7 +38,7 @@ when "generate"
 			Dir.mkdir("assets")
 		end
 		create_message("smoke test") do
-			FileUtils.cp_r(File.expand_path(File.dirname(__FILE__)+"/../assets/"), '.')
+			FileUtils.cp_r(File.expand_path(File.dirname(__FILE__)+"/../assets/smoke_test/"), '.')
 		end
 	end
 end
