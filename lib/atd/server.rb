@@ -13,7 +13,6 @@ module ATD
 			status_code = 200
 			##
 			# Checks if a path doesn't exist. If it doesn't exist return 404
-			puts "EXPRESSION: Path[#{env["REQUEST_METHOD"].downcase.to_sym}, #{env["PATH_INFO"]}] == #{Path[env["REQUEST_METHOD"].downcase, env["PATH_INFO"]]}"
 			if Path[env["REQUEST_METHOD"].downcase, env["PATH_INFO"]].empty?
 				page.push("404 Error: Path Not Found")
 				status_code = 404
