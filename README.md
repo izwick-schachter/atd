@@ -128,6 +128,9 @@ And promptly after that optimisic "No more bugs!" in the last version we have ou
 0.2.1:
  - Forgot to resolve merge conflict
 
+0.2.2:
+ - Refrenced no longer existant class.
+
 ## Issues/Bugs/Feature Requests/Todo list
 
 Use the github issue tracker.
