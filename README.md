@@ -125,6 +125,8 @@ And promptly after that optimisic "No more bugs!" in the last version we have ou
  - (Issue #2) Added self detecting file extensions, so if you don't want to type out the whole asset name, you can just end it in a . (assuming no similarly named files), and the program will autoresolve the extension.
  - (Issue #5) Added helper methods (they were usable before), adding a supported way to use them, as you can see in the helper section of this README.
 
+0.2.1:
+ - Forgot to resolve merge conflict
 
 ## Issues/Bugs/Feature Requests/Todo list
 

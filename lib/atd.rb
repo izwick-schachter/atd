@@ -43,7 +43,6 @@ class Object
 	include ATD::Path::Verbs
 	include ATD::Renderers
 	include ATD::Helpers
-	include Rack::Request
 end
 
 at_exit do
