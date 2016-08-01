@@ -2,6 +2,7 @@ require "rack"
 require_relative "atd/path.rb"
 require_relative "atd/server.rb"
 require_relative "atd/handlers.rb"
+require_relative "atd/request.rb"
 require_relative "version.rb"
 
 # TODO: Add asset pipeline
@@ -41,6 +42,7 @@ end
 class Object
 	include ATD::Path::Verbs
 	include ATD::Renderers
+	include ATD::Request
 end
 
 at_exit do
