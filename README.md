@@ -70,6 +70,19 @@ module ATD::Renderers
 end
 ```
 
+## Helpers
+
+Helper methods are methods that can be used inside routes. These can be defined in the appfile (but this option may become depricated) and should be appended to the ATD::Helpers module. For example:
+
+```
+module ATD::Helpers
+	def test
+		puts "Test helpers"
+	end
+end
+
+It still needs to be decided how these will interact with non-static variables like `params` and `session` (see issue #3). Currently they have no access.
+
 ## Change Log
 
 0.0.1:
@@ -109,7 +122,8 @@ What else is new in 0.1.0?
 And promptly after that optimisic "No more bugs!" in the last version we have our first bug! I forgot to put "end" in handlers.rb.
 
 0.2.0:
- - Added self detecting file extensions, so if you don't want to type out the whole asset name, you can just end it in a . (assuming no similarly named files), and the program will autoresolve the extension.
+ - (Issue #2) Added self detecting file extensions, so if you don't want to type out the whole asset name, you can just end it in a . (assuming no similarly named files), and the program will autoresolve the extension.
+ - (Issue #5) Added helper methods (they were usable before), adding a supported way to use them, as you can see in the helper section of this README.
 
 
 ## Issues/Bugs/Feature Requests/Todo list
