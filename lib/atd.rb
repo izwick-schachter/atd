@@ -5,15 +5,10 @@ require_relative "atd/handlers.rb"
 require_relative "atd/helpers.rb"
 require_relative "version.rb"
 
-# TODO: Add asset pipeline
-# TODO: Test Driven Development
-# TODO: Test how well actions within routes work
-# TODO: Don't generate assets unless in an atd dir
-
 module ATD
 
 	##
-	# This class is responsible for validating all of the file paths which are used in the app
+	# This module is responsible for validating all of the file paths which are used in the app
 	module Validations
 		##
 		# This checks if a file name is using `..` to back out, which would allow access to any files on the system
@@ -23,15 +18,15 @@ module ATD
 	end
 
 	##
-	# Manages the (currently only webrick) server
+	# Manages the server
 	
-	module Server
+	class Server
 
 		##
-		# Creates routes for all the assets, then starts a WEBrick server.
-		def self.start
-			ATD::Path::Assets.setup
-			Rack::Server.start(:app =>ATD::App, :server => "WEBrick")
+		# Creates routes for all the assets, then starts a server.
+		def initialize(server = "WEBrick",port = 3150)
+			ATD::Path::Assets.new
+			Rack::Server.start(:app =>ATD::App, :server => server, :Port => port)
 		end
 	end
 
@@ -41,10 +36,9 @@ end
 # Adds relevant methods to Object for easy access
 class Object
 	include ATD::Path::Verbs
-	include ATD::Renderers
 	include ATD::Helpers
 end
 
 at_exit do
-	ATD::Server.start
+	ATD::Server.new
 end

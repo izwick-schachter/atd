@@ -32,10 +32,10 @@ module ATD
 						end
 						puts "Changed output from #{old} to #{output}"
 					end
-					unless ATD::Renderers.permisible_filetypes.include? output.split(".").last.to_sym
+					unless ATD::Renderer.permisible_filetypes.include? output.split(".").last.to_sym
 						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
 					end
-					@output = Renderers.parse(output)
+					@output = Renderer.new(output)
 					@@paths.push [path, method, self]
 				else
 					puts "Asset #{path} skipped"
@@ -102,11 +102,11 @@ module ATD
 
 		##
 		# Allows ATD::Server's start method to compile the static assets into routes
-		module Assets
+		class Assets
 
 			##
 			# Takes all the files in the assets directory and creates routes from them
-			def self.setup
+			def initialize
 				return nil if !Dir.exists? "assets"
 				(Dir.entries("assets")-["..","."]).each do |i|
 					ATD::Path.new("/#{i}",nil,nil,:get,i,true)
