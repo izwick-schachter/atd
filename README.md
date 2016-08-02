@@ -139,3 +139,5 @@ Use the github issue tracker.
 ##### Any help you can give would be increbible, please don't be shy
 
 If you want to contribute, please just shoot me an email at izwick.schachter@gmail.com. I would love any help I can get from any level of developer. Especailly if you have expierence with volt. I have absolutly no expierence so it would be really create to have someone onboard who can help me implient some volt-like functionality. I would also like somebody who can help me write tests (someone with Rack::Test expierence) for this project because I am not good at writing tests.
+
+Also, feel free to open an issue about any problems, just knowing about issues and features people want would still be incredibly useful. Anything is possible from here, so don't be afraid to ask for any features your heart desires. To contribute, feel free to use pull requests.
