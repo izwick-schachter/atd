@@ -1,49 +1,46 @@
 module ATD
 	##
 	# This module is responsible for delegating http verb unique parsing methods. Currently doesn't do much.
-	module RequestHandlers
+	class RequestHandler
 
-		def self.route(verb, path)
+		def initialize(verb, path)
 			return {:"content-type" => "text/plain", :content => "Error"} if !Path::Verbs.allowed_verbs.include? verb.downcase.to_sym
 			@@path_info = path
 			@@path = Path[verb,path]
-			send(verb.downcase)
-		end
-
-		##
-		# Processes get routes. Returns either the filename or plaintext output, and sends it back to ATD::App, where it is then sent to ATD::Renerers.
-		# The call could be shorter if you skiped the sending to ATD::App and just sent the ouput streight to ATD::Renderers.
-		def self.get
-			all
-			{:"content-type" => "text/plain", :content => @@path[0].output} if !@@path[0].output.is_a?(Hash)
-			@@path[0].output
-		end
-
-		##
-		# Processes post routes. It currently just processes the action by calling all
-		def self.post
-			all
-			return {:"content-type" => nil, :content => nil}
+			case verb.downcase
+			when "get"
+				##
+				# Processes get routes. Returns either the filename or plaintext output, and sends it back to ATD::App, where it is then sent to ATD::Renerers.
+				# The call could be shorter if you skiped the sending to ATD::App and just sent the ouput streight to ATD::Renderers.
+				all
+				{:"content-type" => "text/plain", :content => @@path[0].output} if !@@path[0].output.is_a?(Hash)
+				@@path[0].output
+			when "post"
+				##
+				# Processes post routes. It currently just processes the action by calling all
+				all
+				return {:"content-type" => nil, :content => nil}
+			end
 		end
 
 		##
 		# Because all paths need their action called, so this method does it, and is called by all the other ATD::RequestHandlers
-		def self.all
+		def all
 			paths = @@path[0]
 			paths.action.call unless paths.nil? || paths.action.nil?
 		end
 	end
 
-	module Renderers
+	class Renderer
 		##
 		# As input it takes a filename, checks if it's in the assets folder, then parses it using the other methods in ATD::Renderers and once it reaches the last extension, returns it and also finds the mime_type.
-		def self.parse(filename)
+		def initialize(filename)
 			mime_type = "text/plain"
 			file = filename
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
-					break unless Renderers.permisible_filetypes.include? i.to_sym
+					break unless Renderer.permisible_filetypes.include? i.to_sym
 					details = send("#{i}",file)
 					if details.class == Hash then
 						file = details[:file]
@@ -58,7 +55,7 @@ module ATD
 		end
 
 		def self.permisible_filetypes
-			Renderers.instance_methods
+			self.instance_methods(false)
 		end
 
 		##

@@ -24,7 +24,7 @@ module ATD
 				@@path_info = env["PATH_INFO"]
 				##
 				# 2. Sets ouput to wherever ATD::RequestHandlers returns from RequestHandlers.get / .post call
-				output = RequestHandlers.route(env["REQUEST_METHOD"],env["PATH_INFO"])
+				output = RequestHandler.new(env["REQUEST_METHOD"],env["PATH_INFO"])
 				##
 				# 3. Converts ouput to a usable rack ouput
 				if output[:"content-type"].nil?
