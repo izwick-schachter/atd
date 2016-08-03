@@ -3,6 +3,7 @@ require_relative "atd/path.rb"
 require_relative "atd/server.rb"
 require_relative "atd/handlers.rb"
 require_relative "atd/helpers.rb"
+require_relative "atd/request.rb"
 require_relative "version.rb"
 
 module ATD
