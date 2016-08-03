@@ -131,6 +131,10 @@ And promptly after that optimisic "No more bugs!" in the last version we have ou
 0.2.2:
  - Refrenced no longer existant class.
 
+0.2.2a:
+ - We are now changing our git workflow.
+ - Some behind the scenes changes have been made. Consider it a preview to v0.3.
+
 ## Issues/Bugs/Feature Requests/Todo list
 
 Use the github issue tracker.
