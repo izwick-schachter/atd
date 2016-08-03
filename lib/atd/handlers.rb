@@ -40,7 +40,7 @@ module ATD
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
-					break unless @@permisible_filetypes.include? i.to_sym
+					break unless Renderer.permisible_filetypes.include? i.to_sym
 					details = send("#{i}",file)
 					if details.class == Hash then
 						file = details[:file]
@@ -54,10 +54,8 @@ module ATD
 			return {:content => file, :"content-type" => mime_type}
 		end
 
-		@@permisible_filetypes = ATD::Renderer.instance_methods(false)
-
 		def self.permisible_filetypes
-			@@permisible_filetypes
+			self.instance_methods(false)
 		end
 
 		##
