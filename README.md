@@ -80,6 +80,7 @@ module ATD::Helpers
 		puts "Test helpers"
 	end
 end
+```
 
 It still needs to be decided how these will interact with non-static variables like `params` and `session` (see issue #3). Currently they have no access.
 
@@ -133,7 +134,10 @@ And promptly after that optimisic "No more bugs!" in the last version we have ou
 
 0.2.2a:
  - We are now changing our git workflow.
- - Some behind the scenes changes have been made. Consider it a preview to v0.3.
+ - Some behind the scenes changes have been made. Consider it a preview to v0.3. (Issue #17)
+
+0.2.3:
+ - Fixed a bug due to issue #17 being released, even though it was not ready yet.
 
 ## Issues/Bugs/Feature Requests/Todo list
 
