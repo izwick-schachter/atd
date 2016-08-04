@@ -36,6 +36,7 @@ module ATD
 						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
 					end
 					@output = Renderer.new(output)
+					@output = @output.output
 					@@paths.push [path, method, self]
 				else
 					puts "Asset #{path} skipped"

@@ -25,14 +25,14 @@ module ATD
 				##
 				# 2. Sets ouput to wherever ATD::RequestHandlers returns from RequestHandlers.get / .post call
 				$test = ATD::Request.new(env)
-				output = RequestHandler.new(env["REQUEST_METHOD"],env["PATH_INFO"])
+				handler = RequestHandler.new(env["REQUEST_METHOD"],env["PATH_INFO"])
 				##
 				# 3. Converts ouput to a usable rack ouput
-				if output[:"content-type"].nil?
+				if handler.output[:"content-type"].nil?
 					status_code = 204
 				else
-					headers["content-type"] = output[:"content-type"]
-					page.push(output[:content])
+					headers["content-type"] = handler.output[:"content-type"]
+					page.push(handler.output[:content])
 				end
 			end
 			##
