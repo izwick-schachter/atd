@@ -1,4 +1,4 @@
-require "./lib/version.rb"
+require_relative "lib/version.rb"
 
 Gem::Specification.new do |s|
   s.name        = 'atd'
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    =
     'https://github.com/izwick-schachter/atd'
   s.license       = 'MIT'
-  s.executables = ["atd"]
+  s.executable = "atd"
   s.add_runtime_dependency "rack", "~> 1"
   s.add_development_dependency "rspec", "~> 3"
   s.add_development_dependency "rack-test", "~> 0"
