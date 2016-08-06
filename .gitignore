@@ -2,3 +2,5 @@
 /test.rb
 /doc/
 /.yardoc/
+.rspec
+.DS_Store

@@ -1,14 +1,21 @@
 require "atd"
+require "rack/test"
+require "test/unit"
 
-describe ATD::RequestHandlers do
-	context "given an invalid verb" do
-		it "returns a text/plain page with the text \"Error\"" do
-			expect(ATD::RequestHandlers.route("plah","/")).to eql({:"content-type" => "text/plain", :content => "Error"})
-		end
-	end
-	context "called from ATD::App" do
-		it "returns a propper hash" do
-			expect(ATD::RequestHandlers.route("get", "/")).to be(Hash)
-		end
-	end
+class HomepageTest < Test::Unit::TestCase
+  include Rack::Test::Methods
+
+  def app
+    MyApp.new
+  end
+
+  def test_redirect_logged_in_users_to_dashboard
+    authorize "bryan", "secret"
+    get "/"
+    follow_redirect!
+
+    assert_equal "http://example.org/redirected", last_request.url
+    assert last_response.ok?
+  end
+
 end
