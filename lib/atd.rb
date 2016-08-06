@@ -5,6 +5,8 @@ require_relative "atd/handlers.rb"
 require_relative "atd/helpers.rb"
 require_relative "version.rb"
 
+##
+# The container for ATD. This allows everything to be refrenced through ATD::Something.something
 module ATD
 
 	##
