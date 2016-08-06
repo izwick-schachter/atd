@@ -10,7 +10,7 @@ require_relative "version.rb"
 module ATD
 
 	##
-	# This module is responsible for validating all of the file paths which are used in the app
+	# This module is responsible for validating all of the file paths which are used in the app.
 	module Validations
 		##
 		# This checks if a file name is using `..` to back out, which would allow access to any files on the system
@@ -20,7 +20,7 @@ module ATD
 	end
 
 	##
-	# Manages the server
+	# Manages the server, for example starting the server. For now, all it does is start the server.
 	
 	class Server
 
