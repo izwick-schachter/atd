@@ -3,8 +3,11 @@ module ATD
 	# This module is responsible for delegating http verb unique parsing methods. Currently doesn't do much.
 	class RequestHandler
 
+		# The output of a parsed file
 		attr_reader :output
 
+		##
+		# Parses a file, and delegates parts to renderer.
 		def initialize(verb, path)
 			@output = {:"content-type" => "text/plain", :content => "Error"} if !Path::Verbs.allowed_verbs.include? verb.downcase.to_sym
 			@@path_info = path
@@ -36,8 +39,11 @@ module ATD
 		end
 	end
 
+	##
+	# This class takes a file and parses it to a string including parsing the file extension and optimizing the files.
 	class Renderer
 
+		# The result of a renderer
 		attr_reader :output
 		##
 		# As input it takes a filename, checks if it's in the assets folder, then parses it using the other methods in ATD::Renderers and once it reaches the last extension, returns it and also finds the mime_type.
@@ -61,6 +67,7 @@ module ATD
 			@output = {:content => file, :"content-type" => mime_type}
 		end
 
+		# Lists the filetypes that are accepted as all the methods in this class. These can be added to in accordance with README.md.
 		def self.permisible_filetypes
 			self.instance_methods(false)
 		end
@@ -71,10 +78,12 @@ module ATD
 			return file
 		end
 
+		# Optimizes a css file
 		def css(file)
 			return file.gsub(/(\t|\n)/,"")
 		end
 
+		# Optimizes a js file
 		def js(file)
 			return file
 		end
