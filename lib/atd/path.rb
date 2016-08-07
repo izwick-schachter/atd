@@ -11,10 +11,16 @@ module ATD
 		@method = nil
 		@output = nil
 
-		attr_reader :headers, :action, :method, :output, :asset
+		# Not used
+		attr_reader :headers
+		# Not used
+		attr_reader :method
+		# HTTP Verb
+		attr_reader :output
+		# String to ouput. Not dynamic. See issue x.
+		attr_reader :asset
+		# If it is an asset or not BOOL TYPE
 
-		##
-		# Initializes a path, saving them all in class variables and also manages duplicates.
 		def initialize(path, headers, action, method, output, asset = false)
 			if !Path[method,path].empty? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
@@ -53,7 +59,8 @@ module ATD
 		def paths.[](arg1=nil,arg2=nil)
 			Path[arg1,arg2]
 		end
-		#			GET			/
+		
+		# A new way of parsing this class through the array notation.
 		def self.[](method=nil,path = nil)
 			return @@paths if path.nil? && method.downcase.to_sym.nil?
 			if path.nil?
@@ -88,6 +95,8 @@ module ATD
 				end
 			end
 
+			##
+			# Defines all the methods to be added to Object which create instances of path, these are what are actually called.
 			module Routes
 				class << self
 					Verbs.allowed_verbs.each do |name|
