@@ -24,9 +24,15 @@ module ATD
 	
 	class Server
 
+		@@started = false
+
+		def self.started?
+			@@started
+		end
 		##
 		# Creates routes for all the assets, then starts a server.
 		def initialize(server = "WEBrick",port = 3150)
+			@@started = true
 			ATD::Path::Assets.new
 			Rack::Server.start(:app =>ATD::App, :server => server, :Port => port)
 		end
