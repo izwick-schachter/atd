@@ -18,10 +18,11 @@ module ATD
 				# Processes get routes. Returns either the filename or plaintext output, and sends it back to ATD::App, where it is then sent to ATD::Renerers.
 				# The call could be shorter if you skiped the sending to ATD::App and just sent the ouput streight to ATD::Renderers.
 				all
-				if !@@path[0].output.is_a?(Hash)
-					@output = {:"content-type" => "text/plain", :content => @@path[0].output}
+				if @@path[0].output.is_a?(Hash)
+					renderer = Renderer.new(@@path[0].output[:content], @@path[0].output[:"content-type"])
+					@output = renderer.output
 				else
-					@output = @@path[0].output
+					@output = {:"content-type" => "text/plain", :content => @@path[0].output}
 				end
 			when "post"
 				##
@@ -47,15 +48,13 @@ module ATD
 		attr_reader :output
 		##
 		# As input it takes a filename, checks if it's in the assets folder, then parses it using the other methods in ATD::Renderers and once it reaches the last extension, returns it and also finds the mime_type.
-		def initialize(filename)
-			mime_type = "text/plain"
+		def initialize(filename, mime_type = "text/plain")
 			file = filename
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
 					if ATD::Server.started?
 						break unless Compiler.permisible_filetypes.include? i.to_sym
-						puts Compiler.permisible_filetypes
 						details = Compiler.send("#{i}",file)
 					else
 						break unless Precompiler.permisible_filetypes.include? i.to_sym
