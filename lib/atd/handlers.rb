@@ -53,8 +53,14 @@ module ATD
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
 				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
-					break unless Renderer.permisible_filetypes.include? i.to_sym
-					details = send("#{i}",file)
+					if ATD::Server.started?
+						break unless Compiler.permisible_filetypes.include? i.to_sym
+						puts Compiler.permisible_filetypes
+						details = Compiler.send("#{i}",file)
+					else
+						break unless Precompiler.permisible_filetypes.include? i.to_sym
+						details = Precompiler.send("#{i}",file)
+					end
 					if details.class == Hash then
 						file = details[:file]
 						mime_type = details[:mime_type]
@@ -67,26 +73,36 @@ module ATD
 			@output = {:content => file, :"content-type" => mime_type}
 		end
 
-		# Lists the filetypes that are accepted as all the methods in this class. These can be added to in accordance with README.md.
-		def self.permisible_filetypes
-			self.instance_methods(false)
+		module Precompiler
+			extend self
+			# Lists the filetypes that are accepted as all the methods in this class. These can be added to in accordance with README.md.
+			def self.permisible_filetypes
+				self.instance_methods(false)
+			end
 		end
 
-		##
-		# Parses an html file (in this case, there is nothing to be parsed, it simply returns an html file.)
-		def html(file)
-			return file
-		end
+		module Compiler
+			extend self
+			# Lists the filetypes that are accepted as all the methods in this class. These can be added to in accordance with README.md.
+			def self.permisible_filetypes
+				self.instance_methods(false)
+			end
 
-		# Optimizes a css file
-		def css(file)
-			return file.gsub(/(\t|\n)/,"")
-		end
+			##
+			# Parses an html file (in this case, there is nothing to be parsed, it simply returns an html file.)
+			def html(file)
+				return file
+			end
 
-		# Optimizes a js file
-		def js(file)
-			return file
-		end
-		
-	end
-end
+			# Optimizes a css file
+			def css(file)
+				return file.gsub(/(\t|\n)/,"")
+			end
+
+			# Optimizes a js file
+			def js(file)
+				return file
+			end
+		end		
+	end	
+end	

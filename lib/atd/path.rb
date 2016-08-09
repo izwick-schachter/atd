@@ -21,7 +21,7 @@ module ATD
 		attr_reader :asset
 		# The block executed when the path is reached
 		attr_reader :action
-		
+
 		def initialize(path, headers, action, method, output, asset = false)
 			if !Path[method,path].empty? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
@@ -39,7 +39,10 @@ module ATD
 						end
 						puts "Changed output from #{old} to #{output}"
 					end
-					unless ATD::Renderer.permisible_filetypes.include? output.split(".").last.to_sym
+					unless ATD::Renderer::Precompiler.permisible_filetypes.include? output.split(".").last.to_sym
+						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a precomiler method."
+					end
+					unless ATD::Renderer::Compiler.permisible_filetypes.include? output.split(".").last.to_sym
 						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
 					end
 					@output = Renderer.new(output)
