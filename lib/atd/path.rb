@@ -13,14 +13,15 @@ module ATD
 
 		# Not used
 		attr_reader :headers
-		# Not used
-		attr_reader :method
 		# HTTP Verb
-		attr_reader :output
+		attr_reader :method
 		# String to ouput. Not dynamic. See issue x.
-		attr_reader :asset
+		attr_reader :output
 		# If it is an asset or not BOOL TYPE
-
+		attr_reader :asset
+		# The block executed when the path is reached
+		attr_reader :action
+		
 		def initialize(path, headers, action, method, output, asset = false)
 			if !Path[method,path].empty? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
