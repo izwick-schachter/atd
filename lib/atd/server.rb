@@ -1,9 +1,11 @@
 module ATD
 
+	##
+	# The class containing the rack server. It delegates tasks out to other classes in parsing requests. It is responsible for sending out the final output and is called singularly by ATD::Server.
 	class App
 
 		##
-		# The real rack app
+		# Initializes the rack app. Called only from ATD::Server.new()
 
 		def self.call(env)
 			##

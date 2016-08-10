@@ -11,10 +11,17 @@ module ATD
 		@method = nil
 		@output = nil
 
-		attr_reader :headers, :action, :method, :output, :asset
+		# Not used
+		attr_reader :headers
+		# HTTP Verb
+		attr_reader :method
+		# String to ouput. Not dynamic. See issue x.
+		attr_reader :output
+		# If it is an asset or not BOOL TYPE
+		attr_reader :asset
+		# The block executed when the path is reached
+		attr_reader :action
 
-		##
-		# Initializes a path, saving them all in class variables and also manages duplicates.
 		def initialize(path, headers, action, method, output, asset = false)
 			if !Path[method,path].empty? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
@@ -32,7 +39,10 @@ module ATD
 						end
 						puts "Changed output from #{old} to #{output}"
 					end
-					unless ATD::Renderer.permisible_filetypes.include? output.split(".").last.to_sym
+					unless ATD::Renderer::Precompiler.permisible_filetypes.include? output.split(".").last.to_sym
+						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a precomiler method."
+					end
+					unless ATD::Renderer::Compiler.permisible_filetypes.include? output.split(".").last.to_sym
 						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a renderer. It will be rendered with mime_type text/plain."
 					end
 					@output = Renderer.new(output)
@@ -53,7 +63,8 @@ module ATD
 		def paths.[](arg1=nil,arg2=nil)
 			Path[arg1,arg2]
 		end
-		#			GET			/
+		
+		# A new way of parsing this class through the array notation.
 		def self.[](method=nil,path = nil)
 			return @@paths if path.nil? && method.downcase.to_sym.nil?
 			if path.nil?
@@ -88,6 +99,8 @@ module ATD
 				end
 			end
 
+			##
+			# Defines all the methods to be added to Object which create instances of path, these are what are actually called.
 			module Routes
 				class << self
 					Verbs.allowed_verbs.each do |name|
