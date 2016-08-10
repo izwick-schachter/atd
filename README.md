@@ -50,22 +50,32 @@ This command will generate an assets folder, in which you can put all of your as
 
 ## Renderers
 
-In ATD renderers are the last thing between your files and the client. The way they work is that they will take your files and compress, parse, and process them and set their mime types before they are sent out.
+In ATD renderers are the last thing between your files and the client. The way they work is that they will take your files and compress, parse, and process them and set their mime types before they are sent out. There are two different renderers, `ATD::Compiler` which deals with live compilation and `ATD::Precompiler` which deals with compilation before startup.
 
 Currenly, by default, ATD only supports the following asset types/file extensions:
  - HTML (`<name>.html`)
  - CSS (`<name>.css`)
  - JS (`<name>.js`)
 
-You can create custom renderers by modifiying ATD::Renderers. This must be done at the top of your file, before those renderers are used. If they are defined afterwards, they will then not be applied. We recommend putting them in a seperate file and then requiring it in your main file. Each renderer should have the method name of the filetype it is managing. It will be given one argument, the file it is parsing, and must either return a string (some modifieied version of the input file) or a hash which can include `:file` set to the file to be returned and/or `:mime_type` set to the mime_type to be returned. Here is how it would be done (for a .erb file):
+You can create custom renderers by modifiying `ATD::Renderer::Compiler` or `ATD::Renderer::Precompiler`. This must be done at the top of your file, before those renderers are used. If they are defined afterwards, they will then not be applied. We recommend putting them in a seperate file and then requiring it in your main file. Each renderer should have the method name of the filetype it is managing. It will be given one argument, the file it is parsing, and must either return a string (some modifieied version of the input file) or a hash which can include `:file` set to the file to be returned and/or `:mime_type` set to the mime_type to be returned. Here is how it would be done (for a .erb file):
 
 ```
-module ATD::Renderers
+module ATD::Renderer::Compiler
 	
 	require "erb"
 
 	def erb(file)
 		return {:file => ERB.new(file).result(), :mime_type => "text/html"}
+	end
+end
+```
+
+This example uses a live compiler because ERB must be compiled live because it uses things like the session and query string and changes each time it is accessed. Here is an example of the css compiler. It is a precompiler because it doesn't changes between runs.
+
+```
+module ATD::Renderer::Precompiler
+	def css(file)
+		return file.gsub(/(\t|\n)/,"") 
 	end
 end
 ```
