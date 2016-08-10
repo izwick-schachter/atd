@@ -3,13 +3,46 @@
 def create_message(name, &block)
 	puts "Creating #{name}..."
 	block.call
-	puts "#{name.capitalize} created!\n\n"
+	fname = []
+	name.split(" ").each do |n|
+		letters = n.split('')
+		letters.first.upcase!
+		fname.push(letters.join)
+	end
+	puts "#{fname.join(" ")} created!\n\n"
+end
+
+if ARGV.include?("--help") || ARGV.include?("-h") || ARGV[1].nil?
+	helpmsg
+end
+
+def helpmsg
+	puts "Usage: atd [subcommand] [flags]"
+	puts "Subcommands:"
+	puts "  - new [AppName]: Generates a new app with the name AppName. AppName should follow conventions for folder naming."
+	puts "  - generate [subcommand]"
+	puts "     - assets: Generates the default assets directory with a smoke test."
+	exit(true)
+end
+
+unless ARGV[2].nil?
+	puts "Too many arguments!\n\n"
+	helpmsg
 end
 
 case ARGV[0]
 when "new"
+	if ARGV[1].nil?
+		puts "You forgot to add the name of your app!\n\n"
+		helpmsg
+	end
 	create_message("#{ARGV[1]} folder") do
-		Dir.mkdir(ARGV[1])
+		if Dir.exists?(ARGV[1])
+			puts "The directory #{ARGV[1]} already exists. Would you like to overwrite it? (y/N)"
+			exit(true) if STDIN.gets.split('')[0].downcase != "y"
+		else
+			Dir.mkdir(ARGV[1])
+		end
 		Dir.chdir(ARGV[1])
 	end
 
@@ -30,7 +63,7 @@ when "new"
 	puts `git commit -am "Initial commit. Welcome to atd! Njoy!"`
 	puts "\n\nGit set up!\n\n"
 	puts "Running your app! Use CTRL+c to exit."
-	exec("ruby app.rb; cd #{ARGV[1]}")
+	exec("ruby app.rb")
 when "generate"
 	case ARGV[1]
 	when "assets"
@@ -38,7 +71,11 @@ when "generate"
 			Dir.mkdir("assets")
 		end
 		create_message("smoke test") do
-			FileUtils.cp_r(File.expand_path(File.dirname(__FILE__)+"/../assets/smoke_test/"), '.')
+			FileUtils.cp_r(File.expand_path(File.dirname(__FILE__)+"/../assets/smoke_test/."), './assets/')
 		end
+	else
+		helpmsg
 	end
+else
+	helpmsg
 end
