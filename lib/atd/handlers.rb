@@ -51,13 +51,14 @@ module ATD
 		def initialize(filename, mime_type = "text/plain")
 			file = filename
 			if File.exists?("./assets/#{Validations.assets_folder(filename)}")
-				file = File.read("./assets/#{Validations.assets_folder(filename)}")
 				filename.split(".").reverse.each do |i|
 					if ATD::Server.started?
 						break unless Compiler.permisible_filetypes.include? i.to_sym
+						file = File.read("./assets/#{Validations.assets_folder(filename)}")
 						details = Compiler.send("#{i}",file)
 					else
 						break unless Precompiler.permisible_filetypes.include? i.to_sym
+						file = File.read("./assets/#{Validations.assets_folder(filename)}")
 						details = Precompiler.send("#{i}",file)
 					end
 					if details.class == Hash then
