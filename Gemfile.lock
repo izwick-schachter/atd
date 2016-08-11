@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    atd (0.2.3)
+    atd (0.3.0)
       rack (~> 1)
 
 GEM
