@@ -32,12 +32,13 @@ module ATD
 					@headers = headers #Why...?
 					@action = action # http meth
 					@method = method # code
+					# The if statement bellow checked if output ends with . and if it does it finds which asset it is referring to.
 					if output.end_with?(".")
-						old = output
-						(Dir.entries("assets/") - [".", ".."]).each do |i|
-							output = i if i.start_with? output
+						old_filename = output
+						(Dir.entries("assets/") - [".", ".."]).each do |filename|
+							output = filename if filename.start_with? output
 						end
-						puts "Changed output from #{old} to #{output}"
+						puts "Changed output from #{old_filename} to #{output}"
 					end
 					unless ATD::Renderer::Precompiler.permisible_filetypes.include? output.split(".").last.to_sym
 						puts "WARNING: The file extension #{output.split(".").last} on the output #{if !asset then "the route" end} #{output} does not have a precomiler method."
