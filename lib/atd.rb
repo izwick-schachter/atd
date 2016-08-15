@@ -1,6 +1,6 @@
 require "rack"
-require_relative "atd/path.rb"
 require_relative "atd/server.rb"
+require_relative "atd/path.rb"
 require_relative "atd/handlers.rb"
 require_relative "atd/helpers.rb"
 require_relative "version.rb"
@@ -32,7 +32,7 @@ module ATD
 		##
 		# Creates routes for all the assets, then starts a server.
 		def initialize(server = "WEBrick",port = 3150)
-			ATD::Path::Assets.new
+			ATD::App::Assets.new
 			@@started = true
 			Rack::Server.start(:app =>ATD::App, :server => server, :Port => port)
 		end
@@ -43,7 +43,7 @@ end
 ##
 # Adds relevant methods to Object for easy access
 class Object
-	include ATD::Path::Verbs
+	include ATD::App::Verbs
 	include ATD::Helpers
 end
 

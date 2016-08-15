@@ -2,7 +2,7 @@ module ATD
 	##
 	# Manages all the initally created paths.
 	# They're all stored here, and this class is queried by the ATD::App.call (rack server) to check if a path exists
-	class Path
+	class App::Path
 		@@paths = []
 
 		@asset = false
@@ -23,10 +23,10 @@ module ATD
 		attr_reader :action
 
 		def initialize(path, headers, action, method, output, asset = false)
-			if !Path[method,path].empty? && !asset
+			if !self.class[method,path].empty? && !asset
 				puts "Warning: You have conflicting routes. Only the first one will be kept. "
 			else
-				if !asset || Path[method,path].empty?
+				if !asset || self.class[method,path].empty?
 					puts "Path #{path} initialized"
 					@asset = asset
 					@headers = headers #Why...?
@@ -79,52 +79,52 @@ module ATD
 			paths.each{|path| final.push path[2]}
 			return final
 		end
+	end
+
+	##
+	# Manages the creation of verb methods for use in the main method to create various paths
+	module App::Verbs
+		@@allowed_verbs = [:get, :post]
 
 		##
-		# Manages the creation of verb methods for use in the main method to create various paths
-		module Verbs
-			@@allowed_verbs = [:get, :post]
+		# Returns an array of the allowed http verbs as symbols (e.g. :get, :post)
+		def self.allowed_verbs
+			@@allowed_verbs
+		end
 
-			##
-			# Returns an array of the allowed http verbs as symbols (e.g. :get, :post)
-			def self.allowed_verbs
-				@@allowed_verbs
+		##
+		# Defines a methos for each http verb that creats an instance of ATD::Path for it
+		@@allowed_verbs.each do |name|
+			define_method(name) do |path, output = "Hello World!", headers = nil, &block|
+				App::Path.new(path,headers,block,name,output)
 			end
+		end
 
-			##
-			# Defines a methos for each http verb that creats an instance of ATD::Path for it
-			@@allowed_verbs.each do |name|
-				define_method(name) do |path, output = "Hello World!", headers = nil, &block|
-					ATD::Path.new(path,headers,block,name,output)
-				end
-			end
-
-			##
-			# Defines all the methods to be added to Object which create instances of path, these are what are actually called.
-			module Routes
-				class << self
-					Verbs.allowed_verbs.each do |name|
-						define_method(name.to_s) do |routes_hash|
-							routes_hash.each do |route,asset|
-								ATD::Path.new(route,nil,nil,:get,asset,false)
-							end
+		##
+		# Defines all the methods to be added to Object which create instances of path, these are what are actually called.
+		module Routes
+			class << self
+				App::Verbs.allowed_verbs.each do |name|
+					define_method(name.to_s) do |routes_hash|
+						routes_hash.each do |route,asset|
+							App::Path.new(route,nil,nil,:get,asset,false)
 						end
 					end
 				end
 			end
 		end
+	end
+
+	##
+	# Allows ATD::Server's start method to compile the static assets into routes
+	class App::Assets
 
 		##
-		# Allows ATD::Server's start method to compile the static assets into routes
-		class Assets
-
-			##
-			# Takes all the files in the assets directory and creates routes from them
-			def initialize
-				return nil if !Dir.exists? "assets"
-				(Dir.entries("assets")-["..","."]).each do |i|
-					ATD::Path.new("/#{i}",nil,nil,:get,i,true)
-				end
+		# Takes all the files in the assets directory and creates routes from them
+		def initialize
+			return nil if !Dir.exists? "assets"
+			(Dir.entries("assets")-["..","."]).each do |i|
+				ATD::App::Path.new("/#{i}",nil,nil,:get,i,true)
 			end
 		end
 	end

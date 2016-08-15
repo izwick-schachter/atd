@@ -53,7 +53,7 @@ module ATD
 			##
 			# Parses a file, and delegates parts to renderer.
 			def initialize(verb, path)
-				@output = {:"content-type" => "text/plain", :content => "Error"} if !Path::Verbs.allowed_verbs.include? verb.downcase.to_sym
+				@output = {:"content-type" => "text/plain", :content => "Error"} if !App::Verbs.allowed_verbs.include? verb.downcase.to_sym
 				@@path_info = path
 				@@path = Path[verb,path]
 				case verb.downcase
