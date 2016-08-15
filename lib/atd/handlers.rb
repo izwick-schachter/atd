@@ -2,7 +2,7 @@ module ATD
 
 	##
 	# This class takes a file and parses it to a string including parsing the file extension and optimizing the files.
-	class Renderer
+	class App::Path::Renderer
 
 		# The result of a renderer
 		attr_reader :output
@@ -64,5 +64,15 @@ module ATD
 				return file
 			end
 		end		
-	end	
+	end
+
+	module Renderer
+		module Compiler
+			extend App::Path::Renderer::Compiler
+		end
+		module Precompiler
+			extend App::Path::Renderer::Precompiler
+		end
+	end
+
 end	

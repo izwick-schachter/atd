@@ -63,7 +63,7 @@ module ATD
 					# The call could be shorter if you skiped the sending to ATD::App and just sent the ouput streight to ATD::Renderers.
 					all
 					if @@path[0].output.is_a?(Hash)
-						renderer = ATD::Renderer.new(@@path[0].output[:content], @@path[0].output[:"content-type"])
+						renderer = Path::Renderer.new(@@path[0].output[:content], @@path[0].output[:"content-type"])
 						@output = renderer.output
 					else
 						@output = {:"content-type" => "text/plain", :content => @@path[0].output}
